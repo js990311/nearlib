@@ -3,7 +3,7 @@
 
 <mapper namespace="com.rejs.nearlib.domain.library.insert.repository.mapper.LibraryInsertMapper">
     <insert id="insertLibraries">
-        INSERT INTO libraries(library_id, name, address, latitude, longitude, webpage, geometry)
+        INSERT INTO libraries(library_id, name, address, longitude, latitude, webpage, geometry)
         VALUES
         <foreach collection="list" item="library" separator=",">
             (
