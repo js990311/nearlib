@@ -1,4 +1,4 @@
-package com.rejs.nearlib.domain.entity;
+package com.rejs.nearlib.domain.library.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -6,12 +6,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
 
-@Builder(access = AccessLevel.PROTECTED)
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "library")
+@Table(name = "libraries")
 public class Library {
 
     @Id

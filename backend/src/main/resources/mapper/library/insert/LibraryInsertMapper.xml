@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rejs.nearlib.domain.library.insert.repository.mapper.LibraryInsertMapper">
+    <insert id="insertLibraries">
+        INSERT INTO libraries(library_id, name, address, latitude, longitude, webpage, geometry)
+        VALUES
+        <foreach collection="list" item="library" separator=",">
+            (
+                #{library.id},
+                #{library.name},
+                #{library.address},
+                #{library.longitude},
+                #{library.latitude},
+                #{library.webpage},
+                ST_SetSRID(ST_MakePoint(#{library.longitude}, #{library.latitude}), 4326)
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertLibrary" parameterType="com.rejs.nearlib.domain.library.insert.dto.LibraryTuple">
+        INSERT INTO libraries(library_id, name, address, latitude, longitude, webpage, geometry)
+        VALUES
+        (
+            #{library.id},
+            #{library.name},
+            #{library.address},
+            #{library.longitude},
+            #{library.latitude},
+            #{library.webpage},
+            ST_SetSRID(ST_MakePoint(#{library.longitude}, #{library.latitude}), 4326)
+        )
+    </insert>
+
+</mapper>

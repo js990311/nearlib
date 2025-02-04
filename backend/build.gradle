@@ -43,6 +43,9 @@ dependencies {
 	// flyway
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.flywaydb:flyway-database-postgresql'
+
+	// csv parser
+	implementation 'com.univocity:univocity-parsers:2.9.1'
 }
 
 tasks.named('test') {

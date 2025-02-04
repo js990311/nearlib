@@ -1,4 +1,4 @@
-create table library (
+create table libraries (
      library_id bigint not null,
      address varchar(255),
      latitude float(53),
