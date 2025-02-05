@@ -1,12 +1,14 @@
 # for dev
 # docker compose support는 사용하지 않으니 알아서 켜서 사용할 것
+# 아래의 명령어를 사용할 것
+# docker-compose --env-file .env up -d
 
 services:
   postgis:
     image: rejs/pg_bigm:17-postgis
     environment:
-      POSTGRES_USER: proxbook_server
-      POSTGRES_PASSWORD: proxbook_secret
-      POSTGRES_DB: proxbook
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5432:5432"

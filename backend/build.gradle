@@ -29,6 +29,7 @@ ext {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
 	compileOnly 'org.projectlombok:lombok'
@@ -38,6 +39,13 @@ dependencies {
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.4'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// flyway
+	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.flywaydb:flyway-database-postgresql'
+
+	// csv parser
+	implementation 'com.univocity:univocity-parsers:2.9.1'
 }
 
 tasks.named('test') {
