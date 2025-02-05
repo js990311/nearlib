@@ -3,9 +3,14 @@
 import Link from "next/link";
 import {useState} from "react";
 import IconButton from "@/app/components/button/IconButton";
+import NavSmall from "@/app/components/nav/NavSmall";
 
 export default function Nav():React.ReactNode {
     const [openNav, setOpenNav] = useState(false);
+
+    const closeNav = () => {
+        setOpenNav(false);
+    };
 
     return (
         <nav>
@@ -42,27 +47,9 @@ export default function Nav():React.ReactNode {
             </div>
             {/* small size nav side */}
             {openNav && (
-                <div className="fixed inset-0 bg-white z-10">
-                    <div className="flex flex-col ">
-                        <div className="relative w-full py-3">
-                            <IconButton
-                                iconClass="fa-solid fa-xmark p-3"
-                                className="absolute top-0 right-0"
-                                onClick={() => {
-                                    setOpenNav(false)
-                                }}
-                            />
-                        </div>
-                        <div>
-                            TODO 내 정보 보기
-                        </div>
-                        {/* TODO 검색창 */}
-                        <input type="text"/>
-                        <Link href={"/library"}>
-                            내 주변 도서관 찾기
-                        </Link>
-                    </div>
-                </div>
+                <NavSmall
+                    onClose={closeNav}
+                />
             )}
         </nav>
     )
