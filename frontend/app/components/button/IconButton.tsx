@@ -1,3 +1,5 @@
+"use client"
+
 type IconButtonProps = {
     iconClass: string;
     className?: string;

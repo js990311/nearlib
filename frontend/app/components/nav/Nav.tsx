@@ -18,7 +18,7 @@ export default function Nav():React.ReactNode {
             <div className="container mx-auto flex justify-between items-center">
                 <div id="nav-left" className="flex justify-start items-center">
                     <div className="md:mr-20">
-                        <Link href={"/public"}>
+                        <Link href={"/"}>
                             TODO logo
                         </Link>
                     </div>
