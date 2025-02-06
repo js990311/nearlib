@@ -4,6 +4,7 @@ import Link from "next/link";
 import {useState} from "react";
 import IconButton from "@/app/components/button/IconButton";
 import NavSmall from "@/app/components/nav/NavSmall";
+import SearchBar from "@/app/components/searchbar/SearchBar";
 
 export default function Nav():React.ReactNode {
     const [openNav, setOpenNav] = useState(false);
@@ -13,7 +14,7 @@ export default function Nav():React.ReactNode {
     };
 
     return (
-        <nav>
+        <nav className="border-b border-gray-600 shadow-md bg-gray-500 text-white p-1">
             <div className="container mx-auto flex justify-between items-center">
                 <div id="nav-left" className="flex justify-start items-center">
                     <div className="md:mr-20">
@@ -29,7 +30,7 @@ export default function Nav():React.ReactNode {
                 </div>
                 <div id="nav-right" className="hidden md:flex justify-end items-center">
                     {/* TODO 검색창 */}
-                    <input type="text"/>
+                    <SearchBar />
                     <div>
                         <IconButton
                             iconClass="fa-solid fa-user p-3"
@@ -45,7 +46,8 @@ export default function Nav():React.ReactNode {
                     }} />
                 </div>
             </div>
-            {/* small size nav side */}
+
+            {/* small size nav */}
             {openNav && (
                 <NavSmall
                     onClose={closeNav}
