@@ -5,9 +5,15 @@ import {useState} from "react";
 import IconButton from "@/app/components/button/IconButton";
 import NavSmall from "@/app/components/nav/NavSmall";
 import SearchBar from "@/app/components/searchbar/SearchBar";
+import {useRouter} from "next/navigation";
 
 export default function Nav():React.ReactNode {
     const [openNav, setOpenNav] = useState(false);
+    const router = useRouter();
+
+    const onSearch = (q:string) => {
+        router.push(`/library?q=${q}`);
+    }
 
     const closeNav = () => {
         setOpenNav(false);
@@ -29,8 +35,9 @@ export default function Nav():React.ReactNode {
                     </div>
                 </div>
                 <div id="nav-right" className="hidden md:flex justify-end items-center">
-                    {/* TODO 검색창 */}
-                    <SearchBar />
+                    <SearchBar
+                        onSubmit={onSearch}
+                    />
                     <div>
                         <IconButton
                             iconClass="fa-solid fa-user p-3"
