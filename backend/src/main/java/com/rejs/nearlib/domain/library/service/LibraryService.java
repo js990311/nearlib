@@ -6,6 +6,9 @@ import com.rejs.nearlib.domain.library.entity.Library;
 import com.rejs.nearlib.domain.library.repostory.LibraryQueryRepository;
 import com.rejs.nearlib.domain.library.repostory.LibraryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,5 +28,14 @@ public class LibraryService {
 
     public List<NearLibraryDto> findNearLibraries(Double latitude, Double longitude, Integer range){
         return libraryQueryRepository.findNearLibraries(latitude, longitude, range);
+    }
+
+    public List<LibraryDto> findAll(){
+        List<Library> libraries = libraryRepository.findAll();
+        return libraries.stream().map(LibraryDto::of).toList();
+    }
+
+    public Page<LibraryDto> search(String name, int page, int size){
+        return libraryRepository.findByNameContaining(name, PageRequest.of(page, size)).map(LibraryDto::of);
     }
 }
