@@ -4,7 +4,7 @@ import {useState} from "react";
 import IconButton from "@/app/components/button/IconButton";
 
 type SearchBarProps = {
-    onSubmit: (q: string) => void;
+    onSubmit: (q: string) => void,
 };
 
 export default function SearchBar({onSubmit}: SearchBarProps):React.ReactNode {

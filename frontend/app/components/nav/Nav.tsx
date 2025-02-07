@@ -12,7 +12,7 @@ export default function Nav():React.ReactNode {
     const router = useRouter();
 
     const onSearch = (q:string) => {
-        router.push(`/library?q=${q}`);
+        router.push(`/library/search?q=${q}`);
     }
 
     const closeNav = () => {
