@@ -1,10 +1,10 @@
 INSERT INTO libraries(library_id, name, address, longitude, latitude, webpage, geometry)
 VALUES
     -- 서울성북
-    (1, '테스트 도서관', '테스트 주소',127.02,37.58,'library.webpage',ST_SetSRID(ST_MakePoint(127.02,37.58), 4326)),
-    (2, '테스트 도서관', '테스트 주소',127.02,37.58,'library.webpage',ST_SetSRID(ST_MakePoint(127.02,37.58), 4326)),
-    (3, '테스트 도서관', '테스트 주소',127.02,37.58,'library.webpage',ST_SetSRID(ST_MakePoint(127.02,37.58), 4326)),
-    (4, '테스트 도서관', '테스트 주소',127.02,37.58,'library.webpage',ST_SetSRID(ST_MakePoint(127.02,37.58), 4326)),
+    (1, '서울검색도서관', '테스트 주소',127.02,37.58,'library.webpage',ST_SetSRID(ST_MakePoint(127.02,37.58), 4326)),
+    (2, '서울 검색 도서관', '테스트 주소',127.02,37.58,'library.webpage',ST_SetSRID(ST_MakePoint(127.02,37.58), 4326)),
+    (3, '서울검색 도서관', '테스트 주소',127.02,37.58,'library.webpage',ST_SetSRID(ST_MakePoint(127.02,37.58), 4326)),
+    (4, '서울 검색도서관', '테스트 주소',127.02,37.58,'library.webpage',ST_SetSRID(ST_MakePoint(127.02,37.58), 4326)),
     (5, '테스트 도서관', '테스트 주소',127.02,37.58,'library.webpage',ST_SetSRID(ST_MakePoint(127.02,37.58), 4326)),
     (6, '테스트 도서관', '테스트 주소',127.02,37.58,'library.webpage',ST_SetSRID(ST_MakePoint(127.02,37.58), 4326)),
     (7, '테스트 도서관', '테스트 주소',127.02,37.58,'library.webpage',ST_SetSRID(ST_MakePoint(127.02,37.58), 4326)),
