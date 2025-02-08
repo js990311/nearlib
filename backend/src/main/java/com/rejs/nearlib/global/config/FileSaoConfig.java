@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration
 public class FileSaoConfig {
-    @Profile("dev")
+    @Profile({"dev", "test"})
     @Bean
     public FileSystemAccessObject localFileSAO(){
         return new LocalFileSAO();
