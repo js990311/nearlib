@@ -35,6 +35,10 @@ public class LibraryService {
         return libraries.stream().map(LibraryDto::of).toList();
     }
 
+    public List<Long> findAllId(){
+        return libraryRepository.findAllId();
+    }
+
     public Page<LibraryDto> search(String name, int page, int size){
         return libraryRepository.findByNameContaining(name, PageRequest.of(page, size)).map(LibraryDto::of);
     }

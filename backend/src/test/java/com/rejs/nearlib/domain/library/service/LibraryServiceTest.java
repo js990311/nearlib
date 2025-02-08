@@ -40,4 +40,9 @@ class LibraryServiceTest extends AbstractTestContainerTest {
         assertEquals(1, target.getNumber());
     }
 
+    @Test
+    void findAllId() {
+        List<Long> allId = libraryService.findAllId();
+        assertEquals(20, allId.size());
+    }
 }

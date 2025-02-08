@@ -26,9 +26,9 @@ public class LibraryController {
         return ListDto.of(libraryService.findNearLibraries(latitude, longitude, range));
     }
 
-    @GetMapping("/all-libraries")
-    public ListDto<LibraryDto> getAllLibraries(){
-        return ListDto.of(libraryService.findAll());
+    @GetMapping("/all-libraries-id")
+    public ListDto<Long> getAllLibrariesId(){
+        return ListDto.of(libraryService.findAllId());
     }
 
     @GetMapping("/search")
