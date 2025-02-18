@@ -1,4 +1,5 @@
 import Library from "@/types/Library";
+import Map from "@/app/components/map/Map"
 
 export default async function LibraryIdPage({params}:{params: {id:number}}) {
 
@@ -20,5 +21,6 @@ export default async function LibraryIdPage({params}:{params: {id:number}}) {
             <p className="text-gray-700 mt-2">{address}</p>
         </div>
         {/* TODO MAP */}
+        <Map lat={latitude} lng={longitude}  />
     </div>)
 }
