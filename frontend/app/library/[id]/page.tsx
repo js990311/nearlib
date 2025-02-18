@@ -1,5 +1,4 @@
 import Library from "@/types/Library";
-import Map from "@/app/components/map/Map"
 import MarkedMap from "@/app/components/map/MarkedMap";
 
 export default async function LibraryIdPage({params}:{params: {id:number}}) {
