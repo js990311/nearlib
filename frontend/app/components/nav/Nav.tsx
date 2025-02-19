@@ -29,7 +29,7 @@ export default function Nav():React.ReactNode {
                         </Link>
                     </div>
                     <div className="hidden md:flex justify-start items-center">
-                        <Link href={"/library"}>
+                        <Link href={"/library/my-library"}>
                             내 주변 도서관 찾기
                         </Link>
                     </div>

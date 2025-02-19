@@ -15,6 +15,8 @@ export default function MarkedMap({center, markers, zoom=15}: MarkedMapProps) {
     const [mapState, setMapState] = useState<naver.maps.Map | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
+    console.log("markers", markers);
+
     useEffect(()=>{
         if(isLoading){
             if(!mapRef.current || !window.naver) return;
@@ -27,16 +29,20 @@ export default function MarkedMap({center, markers, zoom=15}: MarkedMapProps) {
             }
             let map: naver.maps.Map = new naver.maps.Map(mapRef.current, mapOptions);
             console.log(markers);
-            let drawingMarkers = markers.map((markerLatLng: LatLng) => {
-                return new naver.maps.Marker({
-                    position: markerLatLng,
-                    map: map
-                });
-            });
-
             setMapState(map);
         }
     },[isLoading]);
+
+    useEffect(()=>{
+        if(mapState != null){
+            let drawingMarkers = markers.map((markerLatLng: LatLng) => {
+                return new naver.maps.Marker({
+                    position: markerLatLng,
+                    map: mapState
+                });
+            });
+        }
+    }, [mapState, markers]);
 
     return (
         <div>
