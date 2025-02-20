@@ -12,6 +12,7 @@ export default function MyNearLibrary () {
     useEffect(()=>{
         if( "geolocation" in navigator ) {
             navigator.geolocation.getCurrentPosition((position) => {
+                console.log("get current position", position);
                 setLocation({
                     lat: position.coords.latitude,
                     lng: position.coords.longitude,
@@ -22,22 +23,18 @@ export default function MyNearLibrary () {
 
     useEffect(()=>{
         if(location.lat === null || location.lng === null) return;
+        console.log("location", location);
         fetch(`http://localhost:8080/library/near?lat=${location.lat}&lng=${location.lng}&range=${10000}`)
             .then(resp => resp.json())
             .then(data=>{
-                console.log(data.contents);
                 setLibraries(data.contents);
             });
     }, [location]);
-
-    useEffect(()=>{
-        if(location.latitude === null || location.longitude === null) return;
-    }, [libraries]);
-
+    
     return (
         <div>
-            <p>{location.latitude}</p>
-            <p>{location.longitude}</p>
+            <p>{location.lat}</p>
+            <p>{location.lng}</p>
             <ul>
                 {libraries.map(library => (
                     <li key={library.id}>{library.name}</li>

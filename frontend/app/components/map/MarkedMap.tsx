@@ -7,12 +7,14 @@ import LatLng from "@/types/LatLng";
 type MarkedMapProps = {
     center: LatLng;
     markers: LatLng[];
-    zoom: number
+    zoom: number,
+    className ?: string
 };
 
-export default function MarkedMap({center, markers, zoom=15}: MarkedMapProps) {
+export default function MarkedMap({center, markers, zoom=15, className="w-[400px] h-[400px]"}: MarkedMapProps) {
     const mapRef = useRef<HTMLDivElement | null>(null);
     const [mapState, setMapState] = useState<naver.maps.Map | null>(null);
+    const [dmarkers, setDmarkers] = useState<naver.maps.Marker[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     console.log("markers", markers);
@@ -20,6 +22,7 @@ export default function MarkedMap({center, markers, zoom=15}: MarkedMapProps) {
     useEffect(()=>{
         if(isLoading){
             if(!mapRef.current || !window.naver) return;
+            // map 객체가 null이면 만들기
             const {naver} = window;
 
             const mapOptions: naver.maps.MapOptions = {
@@ -28,21 +31,32 @@ export default function MarkedMap({center, markers, zoom=15}: MarkedMapProps) {
                 zoomControl: false,
             }
             let map: naver.maps.Map = new naver.maps.Map(mapRef.current, mapOptions);
-            console.log(markers);
             setMapState(map);
         }
     },[isLoading]);
 
     useEffect(()=>{
-        if(mapState != null){
-            let drawingMarkers = markers.map((markerLatLng: LatLng) => {
+        if(mapState !== null){
+            if(dmarkers !== null){
+                dmarkers.forEach((marker)=>{
+                    marker.setMap(null);
+                });
+            }
+            const drawingMarkers = markers.map((markerLatLng: LatLng) => {
                 return new naver.maps.Marker({
                     position: markerLatLng,
                     map: mapState
                 });
             });
+            setDmarkers(drawingMarkers);
         }
     }, [mapState, markers]);
+
+    useEffect(() => {
+        if(mapState != null){
+            mapState.setCenter(center);
+        }
+    }, [mapState, center]);
 
     return (
         <div>
@@ -54,7 +68,7 @@ export default function MarkedMap({center, markers, zoom=15}: MarkedMapProps) {
                 }}
             />
             <h3>맵</h3>
-            <div id="map" ref={mapRef} className="w-[400px] h-[400px]">
+            <div id="map" ref={mapRef} className={className}>
 
             </div>
         </div>

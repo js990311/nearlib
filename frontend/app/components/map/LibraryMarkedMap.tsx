@@ -8,10 +8,11 @@ import {useEffect, useRef, useState} from "react";
 type LibraryMarkedMapProps = {
     center: LatLng;
     libraries: Library[],
-    zoom: number
+    zoom: number,
+    className?: string;
 }
 
-export default function LibraryMarkedMap({center, libraries, zoom=15}: LibraryMarkedMapProps) {
+export default function LibraryMarkedMap({center, libraries, zoom=15, className="w-[400px] h-[400px]"}: LibraryMarkedMapProps) {
     const [markers, setMarkers] = useState<LibraryMarkedMapProps>([]);
 
     useEffect(()=>{
@@ -34,6 +35,7 @@ export default function LibraryMarkedMap({center, libraries, zoom=15}: LibraryMa
             center={center}
             markers={markers}
             zoom={zoom}
+            className={className}
           />
     );
 }
