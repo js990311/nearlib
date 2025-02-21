@@ -19,21 +19,19 @@ export default function MarkedMap({center, markers, zoom=15, className="w-[400px
 
     console.log("markers", markers);
 
-    useEffect(()=>{
-        if(isLoading){
-            if(!mapRef.current || !window.naver) return;
-            // map 객체가 null이면 만들기
-            const {naver} = window;
+    const createNaverMap = () => {
+        if(!mapRef.current || !window.naver) return;
+        // map 객체가 null이면 만들기
+        const {naver} = window;
 
-            const mapOptions: naver.maps.MapOptions = {
-                center: center,
-                zoom: zoom,
-                zoomControl: false,
-            }
-            let map: naver.maps.Map = new naver.maps.Map(mapRef.current, mapOptions);
-            setMapState(map);
+        const mapOptions: naver.maps.MapOptions = {
+            center: center,
+            zoom: zoom,
+            zoomControl: false,
         }
-    },[isLoading]);
+        let map: naver.maps.Map = new naver.maps.Map(mapRef.current, mapOptions);
+        setMapState(map);
+    }
 
     useEffect(()=>{
         if(mapState !== null){
@@ -63,8 +61,8 @@ export default function MarkedMap({center, markers, zoom=15, className="w-[400px
             <Script
                 strategy="afterInteractive"
                 src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=br63ap9skm&submodules=drawing"
-                onLoad={() => {
-                    setIsLoading(true);
+                onReady={() => {
+                    createNaverMap();
                 }}
             />
             <h3>맵</h3>
