@@ -12,7 +12,7 @@ type LibraryMarkedMapProps = {
     className?: string;
 }
 
-export default function LibraryMarkedMap({center, libraries, zoom=15, className="w-[400px] h-[400px]"}: LibraryMarkedMapProps) {
+export default function LibraryMarkedMap({center, libraries, zoom=15, className="w-full h-[500px] md:h-[600px] lg:h-[700px] rounded-2xl shadow-lg border border-gray-300 overflow-hidden"}: LibraryMarkedMapProps) {
     const [markers, setMarkers] = useState<LibraryMarkedMapProps>([]);
 
     useEffect(()=>{
