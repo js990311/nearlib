@@ -6,6 +6,7 @@ import LibrarySearchBar from "@/app/library/search/components/LibrarySearchBar";
 import MarkedMap from "@/app/components/map/MarkedMap";
 import library from "@/types/Library";
 import LatLng from "@/types/LatLng";
+import LibraryMarkedMap from "@/app/components/library/LibraryMarkedMap";
 
 type LibraryResponse = {
     contents : Library[],
@@ -60,16 +61,10 @@ export default async function LibrarySearch({searchParams} : {searchParams: {
                 contentSize={contentSize}
                 pageSize = {pageSize}
             />
-            {contents.map((library)=>(
-                    <LibraryCard
-                        key={library.id}
-                        library={library} />
-                ))
-            }
-            <MarkedMap
-                zoom={10}
+            <LibraryMarkedMap
                 center={center}
-                markers={libraryMarkers}
+                libraries={contents}
+                zoom={15}
             />
         </div>
     )
