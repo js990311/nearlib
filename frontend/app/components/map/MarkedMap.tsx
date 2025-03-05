@@ -8,14 +8,14 @@ type MarkedMapProps = {
     center: LatLng;
     markers: LatLng[];
     zoom: number,
-    className ?: string
+    className ?: string,
+    selected?: number | null
 };
 
-export default function MarkedMap({center, markers, zoom=15, className="w-[400px] h-[400px]"}: MarkedMapProps) {
+export default function MarkedMap({center, markers, zoom=15, selected}: Readonly<MarkedMapProps>) {
     const mapRef = useRef<HTMLDivElement | null>(null);
     const [mapState, setMapState] = useState<naver.maps.Map | null>(null);
     const [dmarkers, setDmarkers] = useState<naver.maps.Marker[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     console.log("markers", markers);
 
@@ -51,10 +51,18 @@ export default function MarkedMap({center, markers, zoom=15, className="w-[400px
     }, [mapState, markers]);
 
     useEffect(() => {
-        if(mapState != null){
+        if(mapState !== null){
+            console.log("center", center);
             mapState.setCenter(center);
         }
     }, [mapState, center]);
+
+    // useEffect(() => {
+    //     if(mapState !== null && selected !== null){
+    //         console.log(selected, selected);
+    //         mapState.setCenter(selected);
+    //     }
+    // }, [mapState, selected]);
 
     return (
         <div>
@@ -65,9 +73,8 @@ export default function MarkedMap({center, markers, zoom=15, className="w-[400px
                     createNaverMap();
                 }}
             />
-            <h3>맵</h3>
-            <div id="map" ref={mapRef} className={className}>
-
+            <div id="map" ref={mapRef}
+                 className="w-full h-[500px] md:h-[600px] lg:h-[700px] rounded-2xl shadow-lg border border-gray-300 overflow-hidden">
             </div>
         </div>
     );

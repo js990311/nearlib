@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Library from "@/types/Library";
-import LibrarySearchBar from "@/app/library/search/components/LibrarySearchBar";
 
 export default async function LibraryCard({library}: {library: Library}): React.ReactNode {
     return (
