@@ -2,10 +2,11 @@
 
 import Library from "@/types/Library";
 import Link from "next/link";
+import LatLng from "@/types/LatLng";
 
 type LibraryListItemProps = {
     library: Library;
-    onClick: (id:number) => void;
+    onClick: (center:LatLng) => void;
 }
 
 export function LibraryListItem({library, onClick}: LibraryListItemProps) {
@@ -13,7 +14,10 @@ export function LibraryListItem({library, onClick}: LibraryListItemProps) {
 
     return (
         <li className="p-4 bg-white rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition duration-300"
-            onClick={()=> onClick(library.id)}
+            onClick={()=> onClick({
+                lat: library.longitude,
+                lng : library.latitude
+            })}
         >
             <Link
                 href={`/library/${library.id}`}

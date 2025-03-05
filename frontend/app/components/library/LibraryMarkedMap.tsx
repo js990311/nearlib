@@ -15,9 +15,10 @@ type LibraryMarkedMapProps = {
     className?: string;
 }
 
-export default function LibraryMarkedMap({center, libraries, zoom=15}: LibraryMarkedMapProps) {
+export default function LibraryMarkedMap({center:initCenter, libraries, zoom=15}: LibraryMarkedMapProps) {
     const [markers, setMarkers] = useState<LibraryMarkedMapProps>([]);
     const [selected, setSelected] = useState<number>(null);
+    const [center, setCenter] = useState(initCenter);
 
 
     
@@ -34,7 +35,13 @@ export default function LibraryMarkedMap({center, libraries, zoom=15}: LibraryMa
         setMarkers(libraryMarkers);
     }, [libraries]);
 
+    useEffect(() => {
+        setCenter(initCenter);
+    }, [initCenter]);
+
     console.log("libraries", libraries);
+
+    console.log("LibraryMarkedMap", center, initCenter);
 
     return (
         <div>
@@ -46,7 +53,7 @@ export default function LibraryMarkedMap({center, libraries, zoom=15}: LibraryMa
             <OpenList>
                 {libraries.map((library)=>(
                     <LibraryListItem
-                        onClick={(id:number)=>{setSelected(id)}}
+                        onClick={(center:LatLng )=>{setCenter(center)}}
                         key={library.id}
                         library={library}
                     />
