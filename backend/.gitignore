@@ -38,3 +38,6 @@ out/
 
 .env
 data/
+files/
+
+application-loadcsv.yml

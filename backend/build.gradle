@@ -22,7 +22,9 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
+
 
 ext {
 	set('snippetsDir', file("build/generated-snippets"))
@@ -46,6 +48,9 @@ dependencies {
 
 	// csv parser
 	implementation 'com.univocity:univocity-parsers:2.9.1'
+
+	// csv import library
+	implementation 'com.github.js990311:csvloader:0.1.7'
 }
 
 tasks.named('test') {
@@ -56,4 +61,18 @@ tasks.named('test') {
 tasks.named('asciidoctor') {
 	inputs.dir snippetsDir
 	dependsOn test
+}
+
+task loadCsv(type: JavaExec) {
+	group = "loadcsv"
+	description = "load csv"
+
+	mainClass = "com.rejs.csvloader.CsvloaderApplication"
+
+	// CP 설정
+	classpath = sourceSets.main.runtimeClasspath
+
+	args "-y", "library.yml", "-c", "library.csv"
+	args "--spring.main.web-application-type=NONE"
+	args "--spring.profiles.active=loadcsv"
 }
