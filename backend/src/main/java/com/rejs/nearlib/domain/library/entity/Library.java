@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -12,6 +14,7 @@ import lombok.*;
 @Getter
 @Entity
 @Table(name = "libraries")
+@Indexed
 public class Library {
 
     @Id
@@ -19,9 +22,11 @@ public class Library {
     private Long id;
 
     @Column
+    @FullTextField(analyzer = "ngram-korean")
     private String name;
 
     @Column
+    @FullTextField(analyzer = "ngram-korean")
     private String address;
 
     @Column
