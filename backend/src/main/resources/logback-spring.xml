@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Spring 프로퍼티 참조 -->
+    <springProperty name="appName" source="spring.application.name"/>
+
+    <!-- 콘솔 출력 appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Loki4j appender 설정 -->
+    <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
+        <http>
+            <url>http://localhost:3100/loki/api/v1/push</url>
+        </http>
+        <format>
+            <!-- (1) static label 정의 -->
+            <label>
+                <pattern>app=${appName},host=${HOSTNAME},level=%level</pattern>
+                <!-- (2) Marker 기반 동적 라벨 활성화 -->
+                <readMarkers>true</readMarkers>
+            </label>
+            <!-- (3) JSON 메시지 포맷 -->
+            <message>
+                <pattern>
+                    {
+                    "timestamp":"%d{ISO8601}",
+                    "level":"%level",
+                    "logger":"%logger{36}",
+                    "thread":"%thread",
+                    "msg":"%message"
+                    }
+                </pattern>
+            </message>
+        </format>
+    </appender>
+
+    <!-- 루트 로거에 두 appender 연결 -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="LOKI"/>
+    </root>
+
+</configuration>
