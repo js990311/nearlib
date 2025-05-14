@@ -5,6 +5,7 @@ import com.rejs.nearlib.domain.library.dto.NearLibraryDto;
 import com.rejs.nearlib.domain.library.entity.Library;
 import com.rejs.nearlib.domain.library.repostory.LibraryQueryRepository;
 import com.rejs.nearlib.domain.library.repostory.LibraryRepository;
+import com.rejs.nearlib.domain.library.repostory.search.LibrarySearchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +21,7 @@ import java.util.List;
 public class LibraryService {
     private final LibraryRepository libraryRepository;
     private final LibraryQueryRepository libraryQueryRepository;
+    private final LibrarySearchRepository librarySearchRepository;
 
     public LibraryDto findById(Long id){
         Library library = libraryRepository.findById(id).orElseThrow();
@@ -39,7 +41,11 @@ public class LibraryService {
         return libraryRepository.findAllId();
     }
 
-    public Page<LibraryDto> search(String name, int page, int size){
+    public Page<LibraryDto> searchByDB(String name, int page, int size){
         return libraryRepository.findByNameContaining(name, PageRequest.of(page, size)).map(LibraryDto::of);
+    }
+
+    public Page<LibraryDto> searchByEngine(String name, int page, int size){
+        return librarySearchRepository.searchByName(name, PageRequest.of(page, size));
     }
 }

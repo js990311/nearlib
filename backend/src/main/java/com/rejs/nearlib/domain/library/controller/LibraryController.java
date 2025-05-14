@@ -31,13 +31,22 @@ public class LibraryController {
         return ListDto.of(libraryService.findAllId());
     }
 
-    @GetMapping("/search")
-    public PageDto<LibraryDto> getSearchLibrary(
+    @GetMapping("/search-db")
+    public PageDto<LibraryDto> getSearchLibraryByDB(
             @RequestParam(name = "q") String query,
             @RequestParam(name = "p", defaultValue = "1") int page,
             @RequestParam(name= "s", defaultValue = "20") int size
     ){
-        return PageDto.of(libraryService.search(query, page-1, size));
+        return PageDto.of(libraryService.searchByDB(query, page-1, size));
+    }
+
+    @GetMapping("/search-engine")
+    public PageDto<LibraryDto> getSearchLibraryByEngine(
+            @RequestParam(name = "q") String query,
+            @RequestParam(name = "p", defaultValue = "1") int page,
+            @RequestParam(name= "s", defaultValue = "20") int size
+    ){
+        return PageDto.of(libraryService.searchByDB(query, page-1, size));
     }
 
 }
