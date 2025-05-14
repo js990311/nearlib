@@ -1,15 +1,11 @@
-package com.rejs.nearlib;
+package com.rejs.nearlib.global;
 
-import org.junit.jupiter.api.Test;
+
+import com.rejs.nearlib.TestcontainersConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
 @Import(TestcontainersConfiguration.class)
 @SpringBootTest
-class NearlibApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
+public abstract class AbstractTestContainerTest {
 }
