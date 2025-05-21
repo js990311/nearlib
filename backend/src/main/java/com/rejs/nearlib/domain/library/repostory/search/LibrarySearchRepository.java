@@ -37,9 +37,7 @@ public class LibrarySearchRepository {
 
         List<String> names = searchSession.search(Library.class)
                 .select(f -> f.field("name", String.class))
-                .where(f -> f.prefix()
-                        .field("name")
-                        .matching(name))
+                .where(f -> f.match().fields("name").matching(name))
                 .fetchHits(15);
 
         // 중복 제거
