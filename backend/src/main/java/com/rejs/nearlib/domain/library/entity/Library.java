@@ -22,11 +22,11 @@ public class Library {
     private Long id;
 
     @Column
-    @FullTextField(analyzer = "ngram-korean")
+    @FullTextField(analyzer = "nori-korean")
     private String name;
 
     @Column
-    @FullTextField(analyzer = "ngram-korean")
+    @FullTextField(analyzer = "nori-korean")
     private String address;
 
     @Column
