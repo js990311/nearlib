@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.search.engine.backend.types.Projectable;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
@@ -22,11 +23,11 @@ public class Library {
     private Long id;
 
     @Column
-    @FullTextField(analyzer = "nori-korean")
+    @FullTextField(analyzer = "nori-korean-index", projectable = Projectable.YES)
     private String name;
 
     @Column
-    @FullTextField(analyzer = "nori-korean")
+    @FullTextField(analyzer = "nori-korean-index")
     private String address;
 
     @Column

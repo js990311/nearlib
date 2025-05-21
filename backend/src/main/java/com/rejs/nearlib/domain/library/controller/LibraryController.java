@@ -46,7 +46,13 @@ public class LibraryController {
             @RequestParam(name = "p", defaultValue = "1") int page,
             @RequestParam(name= "s", defaultValue = "20") int size
     ){
-        return PageDto.of(libraryService.searchByDB(query, page-1, size));
+        return PageDto.of(libraryService.searchByEngine(query, page-1, size));
     }
+
+    @GetMapping("/search-auto-complete")
+    public ListDto<String> getSearchAutoComplete(@RequestParam(name = "q") String query){
+        return ListDto.of(libraryService.autoCompleteByName(query));
+    }
+
 
 }

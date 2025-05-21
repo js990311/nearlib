@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -29,5 +30,19 @@ public class LibrarySearchRepository {
                 .fetch((int) pageable.getOffset(), pageable.getPageSize());
 
         return PageableExecutionUtils.getPage(result.hits().stream().map(LibraryDto::of).toList(), pageable, ()->result.total().hitCount());
+    }
+
+    public List<String> autoCompleteByName(String name){
+        SearchSession searchSession = Search.session(entityManager);
+
+        List<String> names = searchSession.search(Library.class)
+                .select(f -> f.field("name", String.class))
+                .where(f -> f.prefix()
+                        .field("name")
+                        .matching(name))
+                .fetchHits(15);
+
+        // 중복 제거
+        return names.stream().distinct().collect(Collectors.toList());
     }
 }

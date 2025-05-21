@@ -48,4 +48,8 @@ public class LibraryService {
     public Page<LibraryDto> searchByEngine(String name, int page, int size){
         return librarySearchRepository.searchByName(name, PageRequest.of(page, size));
     }
+
+    public List<String> autoCompleteByName(String name){
+        return librarySearchRepository.autoCompleteByName(name);
+    }
 }

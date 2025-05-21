@@ -12,8 +12,7 @@ import org.hibernate.search.backend.lucene.analysis.LuceneAnalysisConfigurer;
 public class NgramLuceneAnalysisConfigurerImpl implements LuceneAnalysisConfigurer {
     @Override
     public void configure(LuceneAnalysisConfigurationContext context) {
-        // 검색용
-        context.analyzer("nori-korean").custom()
+        context.analyzer("nori-korean-index").custom()
                 .tokenizer(KoreanTokenizerFactory.class)               // Nori 토크나이저
                 .tokenFilter(NGramFilterFactory.class)                 // N-gram 토큰화
                 .param("minGramSize", "2")
