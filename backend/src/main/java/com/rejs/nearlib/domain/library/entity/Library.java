@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
 import org.hibernate.search.engine.backend.types.Projectable;
+import org.hibernate.search.engine.backend.types.Sortable;
 import org.hibernate.search.mapper.pojo.bridge.builtin.annotation.GeoPointBinding;
 import org.hibernate.search.mapper.pojo.bridge.builtin.annotation.Latitude;
 import org.hibernate.search.mapper.pojo.bridge.builtin.annotation.Longitude;
@@ -19,7 +20,7 @@ import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 @Entity
 @Table(name = "libraries")
 @Indexed
-@GeoPointBinding(fieldName = "location")
+@GeoPointBinding(fieldName = "location", sortable = Sortable.YES)
 public class Library {
 
     @Id

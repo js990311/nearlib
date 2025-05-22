@@ -22,8 +22,14 @@ public class LibraryController {
     }
 
     @GetMapping("/near")
-    public ListDto<NearLibraryDto> getNearLibrary(@RequestParam("lat") Double latitude, @RequestParam("lng") Double longitude, @RequestParam("range") Integer range){
-        return ListDto.of(libraryService.findNearLibraries(latitude, longitude, range));
+    public PageDto<LibraryDto> getNearLibrary(
+            @RequestParam("lat") Double latitude,
+            @RequestParam("lng") Double longitude,
+            @RequestParam("range") Integer range,
+            @RequestParam(name = "p", defaultValue = "1") int page,
+            @RequestParam(name= "s", defaultValue = "20") int size
+    ){
+        return PageDto.of(libraryService.findNearLibraries(latitude, longitude, range, page, size));
     }
 
     @GetMapping("/all-libraries-id")

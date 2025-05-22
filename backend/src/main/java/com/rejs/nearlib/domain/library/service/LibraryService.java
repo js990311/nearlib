@@ -28,8 +28,8 @@ public class LibraryService {
         return LibraryDto.of(library);
     }
 
-    public List<NearLibraryDto> findNearLibraries(Double latitude, Double longitude, Integer range){
-        return libraryQueryRepository.findNearLibraries(latitude, longitude, range);
+    public Page<LibraryDto> findNearLibraries(Double latitude, Double longitude, Integer range, int page, int size){
+        return librarySearchRepository.searchByLocation(latitude, longitude, range, PageRequest.of(page,size));
     }
 
     public List<LibraryDto> findAll(){
