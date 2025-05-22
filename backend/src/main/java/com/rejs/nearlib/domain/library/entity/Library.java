@@ -6,6 +6,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
 import org.hibernate.search.engine.backend.types.Projectable;
+import org.hibernate.search.mapper.pojo.bridge.builtin.annotation.GeoPointBinding;
+import org.hibernate.search.mapper.pojo.bridge.builtin.annotation.Latitude;
+import org.hibernate.search.mapper.pojo.bridge.builtin.annotation.Longitude;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
@@ -16,6 +19,7 @@ import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 @Entity
 @Table(name = "libraries")
 @Indexed
+@GeoPointBinding(fieldName = "location")
 public class Library {
 
     @Id
@@ -30,9 +34,11 @@ public class Library {
     @FullTextField(analyzer = "nori-korean-index")
     private String address;
 
+    @Longitude
     @Column
     private Double longitude;
 
+    @Latitude
     @Column
     private Double latitude;
 
