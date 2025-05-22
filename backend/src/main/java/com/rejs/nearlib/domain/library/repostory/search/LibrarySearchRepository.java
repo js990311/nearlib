@@ -1,6 +1,7 @@
 package com.rejs.nearlib.domain.library.repostory.search;
 
 import com.rejs.nearlib.domain.library.dto.LibraryDto;
+import com.rejs.nearlib.domain.library.dto.NearLibraryDto;
 import com.rejs.nearlib.domain.library.entity.Library;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -53,16 +54,24 @@ public class LibrarySearchRepository {
      * @param longitude
      * @param distance 미터 단위
      */
-    public Page<LibraryDto> searchByLocation(double latitude, double longitude, double distance, Pageable pageable){
+    public Page<NearLibraryDto> searchByLocation(double latitude, double longitude, double distance, Pageable pageable){
         SearchSession searchSession = Search.session(entityManager);
 
-        SearchResult<Library> result = searchSession.search(Library.class)
+        GeoPoint center = GeoPoint.of(latitude, longitude);
+
+        SearchResult<NearLibraryDto> result = searchSession
+                .search(Library.class)
+                .select(f->f.composite(
+                        NearLibraryDto::new,
+                        f.entity(),
+                        f.distance("location", center)
+                ))
                 .where(f->f.spatial()
                         .within().field("location")
-                        .circle(latitude, longitude, distance)
-                ).sort(f->f.distance("location", GeoPoint.of(latitude, longitude)).asc())
+                        .circle(center, distance)
+                ).sort(f->f.distance("location", center).asc())
                 .fetch((int) pageable.getOffset(), pageable.getPageSize());
-        return PageableExecutionUtils.getPage(result.hits().stream().map(LibraryDto::of).toList(), pageable, ()->result.total().hitCount());
+        return PageableExecutionUtils.getPage(result.hits(), pageable, ()->result.total().hitCount());
     }
 
 }

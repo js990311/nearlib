@@ -20,7 +20,7 @@ import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 @Entity
 @Table(name = "libraries")
 @Indexed
-@GeoPointBinding(fieldName = "location", sortable = Sortable.YES)
+@GeoPointBinding(fieldName = "location", sortable = Sortable.YES, projectable = Projectable.YES)
 public class Library {
 
     @Id

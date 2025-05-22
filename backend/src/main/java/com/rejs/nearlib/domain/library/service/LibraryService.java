@@ -28,7 +28,7 @@ public class LibraryService {
         return LibraryDto.of(library);
     }
 
-    public Page<LibraryDto> findNearLibraries(Double latitude, Double longitude, Integer range, int page, int size){
+    public Page<NearLibraryDto> findNearLibraries(Double latitude, Double longitude, Integer range, int page, int size){
         return librarySearchRepository.searchByLocation(latitude, longitude, range, PageRequest.of(page,size));
     }
 

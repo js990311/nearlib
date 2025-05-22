@@ -19,7 +19,7 @@ class LibraryServiceTest extends AbstractTestContainerTest {
 
     @Test
     void findNearLibraries() {
-        List<NearLibraryDto> nearLibraries = libraryService.findNearLibraries(37.58, 127.02, 10_000);
+        List<NearLibraryDto> nearLibraries = libraryService.findNearLibraries(37.58, 127.02, 10_000, 1, 20);
         assertEquals(10, nearLibraries.size());
     }
 

@@ -22,7 +22,7 @@ public class LibraryController {
     }
 
     @GetMapping("/near")
-    public PageDto<LibraryDto> getNearLibrary(
+    public PageDto<NearLibraryDto> getNearLibrary(
             @RequestParam("lat") Double latitude,
             @RequestParam("lng") Double longitude,
             @RequestParam("range") Integer range,
