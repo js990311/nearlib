@@ -41,19 +41,39 @@ export default function SearchBar({onSubmit}: SearchBarProps):React.ReactNode {
             console.log(data.contents);
             setSuggestions(data.contents);
             setOnShow(true);
-        }, 500);
+        }, 1500);
 
         return () => {clearTimeout(handler);};
     }, [query]);
 
     return (
-        <form onSubmit={onSearch} className="border rounded-lg p-1 w-full bg-white text-black flex">
+        <form onSubmit={onSearch} className="border rounded-lg p-1 w-full bg-white text-black flex relative">
             <input
                 type="text"
                 className="outline-none w-full"
                 value={query}
                 onChange={(e) => setQuery(e.target.value) }
             />
+            {
+                onShow && (
+                    <ul className={"absolute top-full pt-1 bg-white border-2 border-t-0"}>
+                        {
+                            suggestions.map((suggestion, idx) => (
+                                <li
+                                    key={idx}
+                                    className={"p-2 border-b-2 hover:bg-gray-200 hover:cursor-pointer"}
+                                >
+                                    <button
+                                        onClick={()=>setQuery(suggestion)}
+                                    >
+                                        {suggestion}
+                                    </button>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                )
+            }
             <IconButton
                 iconClass="fa-solid fa-magnifying-glass p-1"
                 isSubmit={true}
