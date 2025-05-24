@@ -1,6 +1,6 @@
 "use client"
 
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import IconButton from "@/app/components/button/IconButton";
 
 type SearchBarProps = {
@@ -15,6 +15,7 @@ export default function SearchBar({onSubmit}: SearchBarProps):React.ReactNode {
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState<string[]>([]);
     const [onShow, setOnShow] = useState<boolean>(false);
+    const onFocusRef = useRef<HTMLFormElement>(null);
 
     const onSearch = (e: React.FormEvent) => {
         e.preventDefault();
@@ -46,8 +47,25 @@ export default function SearchBar({onSubmit}: SearchBarProps):React.ReactNode {
         return () => {clearTimeout(handler);};
     }, [query]);
 
+    useEffect(() => {
+        const onFocusHandler = (event: MouseEvent) => {
+            if(!onFocusRef.current){
+                return;
+            }
+            if(!onFocusRef.current.contains(event.target as Node)){
+                setOnShow(false);
+            }
+        }
+
+        document.addEventListener("mousedown", onFocusHandler);
+        return () => {
+            document.removeEventListener("mousedown", onFocusHandler);
+        }
+    }, [onFocusRef]);
+
     return (
-        <form onSubmit={onSearch} className="border rounded-lg p-1 w-full bg-white text-black flex relative">
+        <form ref={onFocusRef}
+            onSubmit={onSearch} className="border rounded-lg p-1 w-full bg-white text-black flex relative">
             <input
                 type="text"
                 className="outline-none w-full"
@@ -56,7 +74,7 @@ export default function SearchBar({onSubmit}: SearchBarProps):React.ReactNode {
             />
             {
                 onShow && (
-                    <ul className={"absolute top-full pt-1 bg-white border-2 border-t-0"}>
+                    <ul className={"absolute top-full pt-1 bg-white border-2 border-t-0 z-40"}>
                         {
                             suggestions.map((suggestion, idx) => (
                                 <li
