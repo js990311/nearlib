@@ -16,10 +16,13 @@ spring:
     properties:
       hibernate:
         format_sql: true
-      hibernate.search.backend.type: lucene
-      hibernate.search.backend.directory.type: local-filesystem
-      hibernate.search.backend.directory.root: ./files/indexes
-      hibernate.search.backend.analysis.configurer: com.rejs.nearlib.global.hibernate.search.analysis.NgramLuceneAnalysisConfigurerImpl
+        search:
+          backend:
+            type: lucene
+            directory:
+              type:  local-heap
+            analysis:
+              configurer: com.rejs.nearlib.global.hibernate.search.analysis.NgramLuceneAnalysisConfigurerImpl
 
   flyway:
     enabled: true
