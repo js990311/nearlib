@@ -29,7 +29,7 @@ export default async function LibrarySearch({searchParams} : {searchParams: {
         contentSize,
         pageNumber,
         pageSize
-    } : LibraryResponse = await fetch(`http://localhost:8080/library/search-engine?q=${query}&p=${page}&s=${size}`, {}).then(res => res.json());
+    } : LibraryResponse = await fetch(`http://localhost:8080/library/search?q=${query}&p=${page}&s=${size}`, {}).then(res => res.json());
 
     let totalLat = 0;
     let totalLng = 0;

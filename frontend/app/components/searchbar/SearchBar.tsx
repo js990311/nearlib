@@ -35,7 +35,7 @@ export default function SearchBar({onSubmit}: SearchBarProps):React.ReactNode {
         
         const handler = setTimeout(async () => {
             console.log("[SearchBar] response이 있음");
-            const  resp = await fetch(`http://localhost:8080/library/search-auto-complete?q=${query}`);
+            const  resp = await fetch(`http://localhost:8080/library/suggest?q=${query}`);
             if(!resp.ok) throw new Error("Failed to fetch library");
             console.log("[SearchBar] 통신이 제대로 됨");
             const data : LibrarySuggestion = await resp.json();
