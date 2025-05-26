@@ -3,6 +3,7 @@ package com.rejs.nearlib.domain.library.controller;
 import com.rejs.nearlib.domain.library.dto.LibraryDto;
 import com.rejs.nearlib.domain.library.dto.NearLibraryDto;
 import com.rejs.nearlib.domain.library.service.LibraryService;
+import com.rejs.nearlib.domain.library.service.LibraryTokenizeService;
 import com.rejs.nearlib.global.dto.ListDto;
 import com.rejs.nearlib.global.dto.PageDto;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequestMapping("/library")
 public class LibraryController {
     private final LibraryService libraryService;
+    private final LibraryTokenizeService libraryTokenizeService;
 
     @GetMapping("/{id}")
     public LibraryDto getLibraryId(@PathVariable("id") Long id){
@@ -51,5 +53,9 @@ public class LibraryController {
         return ListDto.of(libraryService.autoCompleteByName(query));
     }
 
+    @GetMapping("/token")
+    public ListDto<String> getToken(@RequestParam(name = "q") String query){
+        return ListDto.of(libraryTokenizeService.getTokens(query));
+    }
 
 }
