@@ -3,16 +3,11 @@ package com.rejs.nearlib.domain.library.repostory.search;
 import com.rejs.nearlib.TestcontainersConfiguration;
 import com.rejs.nearlib.domain.library.dto.LibraryDto;
 import com.rejs.nearlib.domain.library.dto.NearLibraryDto;
-import com.rejs.nearlib.domain.library.entity.Library;
 import com.rejs.nearlib.domain.library.repostory.LibraryRepository;
 import jakarta.persistence.EntityManager;
-import org.hibernate.search.mapper.orm.Search;
-import org.junit.Before;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
@@ -51,19 +46,49 @@ class LibrarySearchRepositoryTest {
 
         // T
         assertNotNull(dtos);
-        assertEquals(4, dtos.getContent().size());
+        assertEquals(10, dtos.getContent().size());
     }
 
-    @Disabled
-    @DisplayName("자동완성")
+    @DisplayName("자동완성-서울")
     @Test
-    void autoCompleteByName() {
-        String query = "테스";
+    void suggestBy서울() {
+        String query = "서울";
 
-        List<String> suggestion = librarySearchRepository.autoCompleteByName(query);
+        List<String> suggestion = librarySearchRepository.suggestByName(query, 30);
 
-        assertEquals(15, suggestion.size());
+        assertEquals(10, suggestion.size());
     }
+
+    @DisplayName("자동완성-인천")
+    @Test
+    void suggestBy인천() {
+        String query = "인천";
+
+        List<String> suggestion = librarySearchRepository.suggestByName(query, 30);
+
+        assertEquals(10, suggestion.size());
+    }
+
+    @DisplayName("자동완성-자동")
+    @Test
+    void suggestBy자동() {
+        String query = "자동";
+
+        List<String> suggestion = librarySearchRepository.suggestByName(query, 30);
+
+        assertEquals(8, suggestion.size());
+    }
+
+    @DisplayName("자동완성-도서")
+    @Test
+    void suggestBy도서() {
+        String query = "도서";
+
+        List<String> suggestion = librarySearchRepository.suggestByName(query, 30);
+
+        assertEquals(20, suggestion.size());
+    }
+
 
     /* 위치로 검색 */
 

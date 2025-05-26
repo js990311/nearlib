@@ -9,7 +9,6 @@ import com.rejs.nearlib.domain.library.repostory.search.LibrarySearchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +49,6 @@ public class LibraryService {
     }
 
     public List<String> autoCompleteByName(String name){
-        return librarySearchRepository.autoCompleteByName(name);
+        return librarySearchRepository.suggestByName(name);
     }
 }

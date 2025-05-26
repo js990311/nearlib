@@ -29,6 +29,7 @@ public class Library {
 
     @Column
     @FullTextField(analyzer = "nori-korean-index", projectable = Projectable.YES)
+    @FullTextField(name = "name-suggestion", analyzer = "suggestion-analyzer", projectable = Projectable.YES)
     private String name;
 
     @Column

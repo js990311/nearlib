@@ -6,19 +6,16 @@ import com.rejs.nearlib.domain.library.entity.Library;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.search.engine.search.query.SearchResult;
-import org.hibernate.search.engine.spatial.DistanceUnit;
 import org.hibernate.search.engine.spatial.GeoPoint;
 import org.hibernate.search.mapper.orm.Search;
 import org.hibernate.search.mapper.orm.session.SearchSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.geo.Distance;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -36,17 +33,20 @@ public class LibrarySearchRepository {
         return PageableExecutionUtils.getPage(result.hits().stream().map(LibraryDto::of).toList(), pageable, ()->result.total().hitCount());
     }
 
-    public List<String> autoCompleteByName(String name){
+    public List<String> suggestByName(String name){
+        return this.suggestByName(name, 7);
+    }
+
+    public List<String> suggestByName(String name, int hits){
         SearchSession searchSession = Search.session(entityManager);
 
-        List<String> names = searchSession.search(Library.class)
-                .select(f -> f.field("name", String.class))
-                .where(f -> f.match().fields("name").matching(name))
-                .fetchHits(15);
-
-        // 중복 제거
-        return names.stream().distinct().collect(Collectors.toList());
+        return searchSession
+                .search(Library.class)
+                .select(f -> f.field("name-suggestion", String.class))
+                .where(f -> f.prefix().field("name-suggestion").matching(name))
+                .fetchHits(hits);
     }
+
 
     /**
      *

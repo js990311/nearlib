@@ -37,16 +37,7 @@ public class LibraryController {
         return ListDto.of(libraryService.findAllId());
     }
 
-    @GetMapping("/search-db")
-    public PageDto<LibraryDto> getSearchLibraryByDB(
-            @RequestParam(name = "q") String query,
-            @RequestParam(name = "p", defaultValue = "1") int page,
-            @RequestParam(name= "s", defaultValue = "20") int size
-    ){
-        return PageDto.of(libraryService.searchByDB(query, page-1, size));
-    }
-
-    @GetMapping("/search-engine")
+    @GetMapping("/search")
     public PageDto<LibraryDto> getSearchLibraryByEngine(
             @RequestParam(name = "q") String query,
             @RequestParam(name = "p", defaultValue = "1") int page,
@@ -55,8 +46,8 @@ public class LibraryController {
         return PageDto.of(libraryService.searchByEngine(query, page-1, size));
     }
 
-    @GetMapping("/search-auto-complete")
-    public ListDto<String> getSearchAutoComplete(@RequestParam(name = "q") String query){
+    @GetMapping("/suggest")
+    public ListDto<String> getSuggest(@RequestParam(name = "q") String query){
         return ListDto.of(libraryService.autoCompleteByName(query));
     }
 
