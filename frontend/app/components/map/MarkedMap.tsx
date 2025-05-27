@@ -43,7 +43,14 @@ export default function MarkedMap({center, markers, zoom=15, selected}: Readonly
             const drawingMarkers = markers.map((markerLatLng: LatLng) => {
                 return new naver.maps.Marker({
                     position: markerLatLng,
-                    map: mapState
+                    map: mapState,
+                    icon: {
+                        url: '/images/logo.png',
+                        size: new naver.maps.Size(25, 34),
+                        scaledSize: new naver.maps.Size(25, 34),
+                        origin: new naver.maps.Point(0, 0),
+                        anchor: new naver.maps.Point(12, 34)
+                    }
                 });
             });
             setDmarkers(drawingMarkers);
