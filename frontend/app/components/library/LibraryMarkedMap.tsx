@@ -24,8 +24,8 @@ export default function LibraryMarkedMap({center:initCenter, libraries, zoom=15}
     
     useEffect(()=>{
         const libraryMarkers: LatLng[] = libraries.map((library) => {
-            let lat = library.longitude;
-            let lng = library.latitude;
+            let lat = library.latitude;
+            let lng = library.longitude;
 
             return {
                 lat : lat,

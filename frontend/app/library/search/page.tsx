@@ -1,10 +1,7 @@
 import LibraryCard from "@/app/components/library/LibraryCard";
 import Library from "@/types/Library";
 import React from "react";
-import SearchBar from "@/app/components/searchbar/SearchBar";
 import LibrarySearchBar from "@/app/library/search/components/LibrarySearchBar";
-import MarkedMap from "@/app/components/map/MarkedMap";
-import library from "@/types/Library";
 import LatLng from "@/types/LatLng";
 import LibraryMarkedMap from "@/app/components/library/LibraryMarkedMap";
 
@@ -35,8 +32,8 @@ export default async function LibrarySearch({searchParams} : {searchParams: {
     let totalLng = 0;
 
     const libraryMarkers: LatLng[] = contents.map((library) => {
-        let lat = library.longitude;
-        let lng = library.latitude;
+        let lat = library.latitude;
+        let lng = library.longitude;
 
         totalLat += lat;
         totalLng += lng;

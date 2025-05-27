@@ -20,11 +20,9 @@ export default async function LibraryIdPage({params}:{params: {id:number}}) {
             </a>
             <p className="text-gray-700 mt-2">{address}</p>
         </div>
-        {/* TODO MAP */}
-        {/*<Map lat={latitude} lng={longitude}  />*/}
         <MarkedMap
-            center={{lat:longitude, lng:latitude}}
-            markers={[{lat:longitude, lng:latitude}]}
+            center={{lat:latitude, lng:longitude}}
+            markers={[{lat:latitude, lng:longitude}]}
         />
     </div>)
 }
