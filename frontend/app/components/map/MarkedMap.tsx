@@ -5,6 +5,7 @@ import Script from "next/script";
 import LatLng from "@/types/LatLng";
 import Marker from "@/types/Marker";
 import marker from "@/types/Marker";
+import content from "*.bmp";
 
 type MarkedMapProps = {
     center: LatLng;
@@ -43,9 +44,6 @@ export default function MarkedMap({center, markers, zoom=15, selected}: Readonly
                 });
             }
             const drawingMarkers = markers.map((marker: Marker) => {
-                const infowindow = new naver.maps.InfoWindow({
-                    content: marker.infoContent
-                });
                 const dmarker =  new naver.maps.Marker({
                     position: marker.position,
                     map: mapState,
@@ -57,13 +55,18 @@ export default function MarkedMap({center, markers, zoom=15, selected}: Readonly
                         anchor: new naver.maps.Point(12, 34)
                     }
                 });
-                naver.maps.Event.addListener(dmarker, "click", (e)=>{
-                    if(infowindow.getMap()){
-                        infowindow.close();
-                    }else {
-                        infowindow.open(mapState,dmarker);
-                    }
-                })
+                if(marker.infoContent){
+                    const infowindow = new naver.maps.InfoWindow({
+                        content: marker.infoContent
+                    });
+                    naver.maps.Event.addListener(dmarker, "click", (e)=>{
+                        if(infowindow.getMap()){
+                            infowindow.close();
+                        }else {
+                            infowindow.open(mapState,dmarker);
+                        }
+                    });
+                }
                 return dmarker;
             });
             setDmarkers(drawingMarkers);

@@ -22,7 +22,9 @@ export default async function LibraryIdPage({params}:{params: {id:number}}) {
         </div>
         <MarkedMap
             center={{lat:latitude, lng:longitude}}
-            markers={[{lat:latitude, lng:longitude}]}
+            markers={[{
+                position: {lat:latitude, lng:longitude}
+            }]}
         />
     </div>)
 }
