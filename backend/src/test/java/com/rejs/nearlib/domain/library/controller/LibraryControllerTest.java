@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rejs.nearlib.global.AbstractTestContainerTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,46 @@ class LibraryControllerTest extends AbstractTestContainerTest {
     }
 
     @Test
-    void getNearLibrary() {
+    @DisplayName("library/near -> PageDto<NearLibraryDto>")
+    void getNearLibrary() throws Exception {
+        mockMvc.perform(get("/library/near")
+                .param("lat", "37.58")
+                .param("lng", "127.02")
+                .param("range", "1000000")
+                .param("p", "0")
+                .param("s", "20")
+        ).andExpect(status().isOk())
+                .andDo(MockMvcRestDocumentationWrapper.document(
+                        "{class-name}/{method-name}",
+                        resource(
+                                ResourceSnippetParameters.builder()
+                                        .description("ID로 도서관 조회")
+                                        .queryParameters(
+                                                parameterWithName("lat").description("위도"),
+                                                parameterWithName("lng").description("경도"),
+                                                parameterWithName("range").description("범위"),
+                                                parameterWithName("p").description("페이지번호"),
+                                                parameterWithName("s").description("페이지크기")
+                                            )
+                                        .responseFields(
+                                                // PageDto
+                                                fieldWithPath("contentSize").description("콘텐츠 크기"),
+                                                fieldWithPath("pageNumber").description("페이지 번호"),
+                                                fieldWithPath("pageSize").description("pageSize"),
+                                                fieldWithPath("contents").description("실제 데이터"),
+                                                // NearLibraryDto
+                                                fieldWithPath("contents[].id").description("도서관 번호"),
+                                                fieldWithPath("contents[].name").description("도서관 이름"),
+                                                fieldWithPath("contents[].address").description("도서관 주소"),
+                                                fieldWithPath("contents[].latitude").description("도서관 위도"),
+                                                fieldWithPath("contents[].longitude").description("도서관 경도"),
+                                                fieldWithPath("contents[].webpage").description("도서관 홈페이지"),
+                                                fieldWithPath("contents[].distance").description("위치로부터 도서관까지의 거리")
+                                        )
+                                        .build()
+                        )
+                ));
+        ;
     }
 
     @Test
