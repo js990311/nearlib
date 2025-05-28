@@ -3,10 +3,12 @@
 import {useEffect, useRef, useState} from "react";
 import Script from "next/script";
 import LatLng from "@/types/LatLng";
+import Marker from "@/types/Marker";
+import marker from "@/types/Marker";
 
 type MarkedMapProps = {
     center: LatLng;
-    markers: LatLng[];
+    markers: Marker[];
     zoom: number,
     className ?: string,
     selected?: number | null
@@ -40,12 +42,12 @@ export default function MarkedMap({center, markers, zoom=15, selected}: Readonly
                     marker.setMap(null);
                 });
             }
-            const drawingMarkers = markers.map((markerLatLng: LatLng) => {
-                let infowindow = new naver.maps.InfoWindow({
-                    content: 'test'
+            const drawingMarkers = markers.map((marker: Marker) => {
+                const infowindow = new naver.maps.InfoWindow({
+                    content: marker.infoContent
                 });
-                const marker =  new naver.maps.Marker({
-                    position: markerLatLng,
+                const dmarker =  new naver.maps.Marker({
+                    position: marker.position,
                     map: mapState,
                     icon: {
                         url: '/images/logo.png',
@@ -55,14 +57,14 @@ export default function MarkedMap({center, markers, zoom=15, selected}: Readonly
                         anchor: new naver.maps.Point(12, 34)
                     }
                 });
-                naver.maps.Event.addListener(marker, "click", (e)=>{
+                naver.maps.Event.addListener(dmarker, "click", (e)=>{
                     if(infowindow.getMap()){
                         infowindow.close();
                     }else {
-                        infowindow.open(mapState,marker);
+                        infowindow.open(mapState,dmarker);
                     }
                 })
-                return marker;
+                return dmarker;
             });
             setDmarkers(drawingMarkers);
         }

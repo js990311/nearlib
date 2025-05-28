@@ -7,6 +7,7 @@ import React, {useEffect, useRef, useState} from "react";
 import LibraryCard from "@/app/components/library/LibraryCard";
 import {LibraryListItem} from "@/app/library/my-library/LibraryListItem";
 import OpenList from "@/app/components/list/OpenList";
+import Marker from "@/types/Marker";
 
 type LibraryMarkedMapProps = {
     center: LatLng;
@@ -16,20 +17,23 @@ type LibraryMarkedMapProps = {
 }
 
 export default function LibraryMarkedMap({center:initCenter, libraries, zoom=15}: LibraryMarkedMapProps) {
-    const [markers, setMarkers] = useState<LibraryMarkedMapProps>([]);
+    const [markers, setMarkers] = useState<Marker[]>([]);
     const [selected, setSelected] = useState<number>(null);
     const [center, setCenter] = useState(initCenter);
 
 
     
     useEffect(()=>{
-        const libraryMarkers: LatLng[] = libraries.map((library) => {
+        const libraryMarkers: Marker[] = libraries.map((library) => {
             let lat = library.latitude;
             let lng = library.longitude;
 
             return {
-                lat : lat,
-                lng : lng
+                position: {
+                    lat : lat,
+                    lng : lng
+                },
+                infoContent : `<div><h1>${library.name}</h1><p>${library.address}</p><a href="${library.webpage}">도서관 홈페이지로</a></div>`
             };
         });
         setMarkers(libraryMarkers);
