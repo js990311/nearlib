@@ -33,7 +33,24 @@ export default function LibraryMarkedMap({center:initCenter, libraries, zoom=15}
                     lat : lat,
                     lng : lng
                 },
-                infoContent : `<div><h1>${library.name}</h1><p>${library.address}</p><a href="${library.webpage}">도서관 홈페이지로</a></div>`
+                infoContent : `
+                  <div class="max-w-xs p-4 bg-white rounded-xl shadow-lg font-sans">
+                    <h1 class="text-xl font-semibold text-gray-800 mb-2">
+                      ${library.name}
+                    </h1>
+                    <p class="text-sm text-gray-600 mb-4">
+                      ${library.address}
+                    </p>
+                    <a
+                      href="${library.webpage}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-block px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700 transition-colors"
+                    >
+                      도서관 홈페이지로
+                    </a>
+                  </div>
+                `,
             };
         });
         setMarkers(libraryMarkers);
