@@ -41,7 +41,10 @@ export default function MarkedMap({center, markers, zoom=15, selected}: Readonly
                 });
             }
             const drawingMarkers = markers.map((markerLatLng: LatLng) => {
-                return new naver.maps.Marker({
+                let infowindow = new naver.maps.InfoWindow({
+                    content: 'test'
+                });
+                const marker =  new naver.maps.Marker({
                     position: markerLatLng,
                     map: mapState,
                     icon: {
@@ -52,6 +55,14 @@ export default function MarkedMap({center, markers, zoom=15, selected}: Readonly
                         anchor: new naver.maps.Point(12, 34)
                     }
                 });
+                naver.maps.Event.addListener(marker, "click", (e)=>{
+                    if(infowindow.getMap()){
+                        infowindow.close();
+                    }else {
+                        infowindow.open(mapState,marker);
+                    }
+                })
+                return marker;
             });
             setDmarkers(drawingMarkers);
         }
