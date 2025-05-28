@@ -160,7 +160,28 @@ class LibraryControllerTest extends AbstractTestContainerTest {
     }
 
     @Test
-    void getSuggest() {
+    void getSuggest() throws Exception {
+        mockMvc.perform(get("/library/suggest")
+                        .param("q", "도서관")
+                ).andExpect(status().isOk())
+                .andDo(MockMvcRestDocumentationWrapper.document(
+                        "{class-name}/{method-name}",
+                        resource(
+                                ResourceSnippetParameters.builder()
+                                        .description("ID로 도서관 조회")
+                                        .queryParameters(
+                                                parameterWithName("q").description("검색어")
+                                        )
+                                        .responseFields(
+                                                // ListDto
+                                                fieldWithPath("count").description("데이터 개수"),
+                                                fieldWithPath("contents").description("실제 데이터")
+                                        )
+                                        .build()
+                        )
+                ));
+        ;
+
     }
 
     @Test
