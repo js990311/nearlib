@@ -121,7 +121,42 @@ class LibraryControllerTest extends AbstractTestContainerTest {
     }
 
     @Test
-    void getSearchLibraryByEngine() {
+    @DisplayName("library/search -> PageDto<LibraryDto>")
+    void getSearchLibraryByEngine() throws Exception {
+        mockMvc.perform(get("/library/search")
+                        .param("q", "도서관")
+                        .param("p", "1")
+                        .param("s", "20")
+                ).andExpect(status().isOk())
+                .andDo(MockMvcRestDocumentationWrapper.document(
+                        "{class-name}/{method-name}",
+                        resource(
+                                ResourceSnippetParameters.builder()
+                                        .description("ID로 도서관 조회")
+                                        .queryParameters(
+                                                parameterWithName("q").description("검색어"),
+                                                parameterWithName("p").description("페이지번호"),
+                                                parameterWithName("s").description("페이지크기")
+                                        )
+                                        .responseFields(
+                                                // PageDto
+                                                fieldWithPath("contentSize").description("콘텐츠 크기"),
+                                                fieldWithPath("pageNumber").description("페이지 번호"),
+                                                fieldWithPath("pageSize").description("pageSize"),
+                                                fieldWithPath("contents").description("실제 데이터"),
+                                                // NearLibraryDto
+                                                fieldWithPath("contents[].id").description("도서관 번호"),
+                                                fieldWithPath("contents[].name").description("도서관 이름"),
+                                                fieldWithPath("contents[].address").description("도서관 주소"),
+                                                fieldWithPath("contents[].latitude").description("도서관 위도"),
+                                                fieldWithPath("contents[].longitude").description("도서관 경도"),
+                                                fieldWithPath("contents[].webpage").description("도서관 홈페이지")
+                                        )
+                                        .build()
+                        )
+                ));
+        ;
+
     }
 
     @Test
