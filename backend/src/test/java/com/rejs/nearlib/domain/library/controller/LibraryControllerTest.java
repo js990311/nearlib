@@ -160,6 +160,7 @@ class LibraryControllerTest extends AbstractTestContainerTest {
     }
 
     @Test
+    @DisplayName("library/sugget->ListDto<String>")
     void getSuggest() throws Exception {
         mockMvc.perform(get("/library/suggest")
                         .param("q", "도서관")

@@ -99,3 +99,9 @@ task loadCsv(type: JavaExec) {
 	args "--spring.main.web-application-type=NONE"
 	args "--spring.profiles.active=loadcsv"
 }
+
+postman {
+	title = 'nearlib'
+	version = '0.1.0'
+	baseUrl = 'http://localhost:8080'
+}
