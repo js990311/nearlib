@@ -43,7 +43,7 @@ public class LuceneDevService {
         return indexes;
     }
 
-    public IndexInfo getIndexMetaData(String indexName) throws IOException {
+    public IndexInfo getIndexMetaData(String indexName)  {
         IndexInfo indexInfo = null;
         Directory directory = null;
         DirectoryReader reader = null;
@@ -62,18 +62,28 @@ public class LuceneDevService {
                 fieldNames.add(fieldInfo.name);
             }
             indexInfo = new IndexInfo(indexName,numDocs, maxDoc, numDeletedDocs, fieldNames);
-        }finally {
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally{
             if(directory != null){
-                directory.close();
+                try {
+                    directory.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
             if(reader != null){
-                reader.close();
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         return indexInfo;
     }
 
-    public List<Map<String, Object>> getIndexValues(String indexName) throws IOException {
+    public List<Map<String, Object>> getIndexValues(String indexName) {
         List<Map<String, Object>> documentDatas = new ArrayList<>();
 
         Directory directory = null;
@@ -106,12 +116,22 @@ public class LuceneDevService {
                 }
                 documentDatas.add(fieldsData);
             }
-        }finally {
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
             if(directory != null){
-                directory.close();
+                try {
+                    directory.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
             if(reader != null){
-                reader.close();
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         return documentDatas;

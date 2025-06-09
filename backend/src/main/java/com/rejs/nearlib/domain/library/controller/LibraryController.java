@@ -53,9 +53,5 @@ public class LibraryController {
         return ListDto.of(libraryService.autoCompleteByName(query));
     }
 
-    @GetMapping("/token")
-    public ListDto<String> getToken(@RequestParam(name = "q") String query){
-        return ListDto.of(libraryTokenizeService.getTokens(query));
-    }
 
 }
