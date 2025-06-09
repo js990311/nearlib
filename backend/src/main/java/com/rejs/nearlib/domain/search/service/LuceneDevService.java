@@ -1,10 +1,12 @@
 package com.rejs.nearlib.domain.search.service;
 
 import com.rejs.nearlib.domain.search.dto.IndexInfo;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.FieldInfo;
-import org.apache.lucene.index.FieldInfos;
-import org.apache.lucene.index.MultiFields;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.index.*;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.MatchAllDocsQuery;
+import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * LocalFile-System에 lucene을 사용하는 것을 전제로 함
@@ -67,5 +71,49 @@ public class LuceneDevService {
             }
         }
         return indexInfo;
+    }
+
+    public List<Map<String, Object>> getIndexValues(String indexName) throws IOException {
+        List<Map<String, Object>> documentDatas = new ArrayList<>();
+
+        Directory directory = null;
+        DirectoryReader reader = null;
+        try {
+            directory = FSDirectory.open(Path.of(path + "/" + indexName));
+            reader = DirectoryReader.open(directory);
+
+            IndexSearcher searcher = new IndexSearcher(reader);
+            TopDocs topHits = searcher.search(new MatchAllDocsQuery(), 20);
+
+            for (ScoreDoc scoreDoc : topHits.scoreDocs) {
+                int docId = scoreDoc.doc;
+                Document document = reader.document(docId);
+
+                Map<String, Object> fieldsData = new HashMap<>();
+
+                // 7. 각 필드의 값 추출
+                for (IndexableField field : document.getFields()) {
+                    String fieldName = field.name();
+                    Object fieldValue = null;
+
+                    // 필드 타입에 따라 적절한 값 추출 메서드 사용
+                    if (field.stringValue() != null) {
+                        fieldValue = field.stringValue(); // 문자열 값
+                    } else if (field.numericValue() != null) {
+                        fieldValue = field.numericValue(); // 숫자 값 (Long, Integer, Double 등)
+                    }
+                    fieldsData.put(fieldName, fieldValue);
+                }
+                documentDatas.add(fieldsData);
+            }
+        }finally {
+            if(directory != null){
+                directory.close();
+            }
+            if(reader != null){
+                reader.close();
+            }
+        }
+        return documentDatas;
     }
 }
