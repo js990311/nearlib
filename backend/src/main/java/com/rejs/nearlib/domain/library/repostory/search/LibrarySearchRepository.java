@@ -27,7 +27,7 @@ public class LibrarySearchRepository {
         SearchSession searchSession = Search.session(entityManager);
 
         SearchResult<Library> result = searchSession.search(Library.class)
-                .where(f -> f.match().fields("name").matching(name))
+                .where(f -> f.match().fields("name").matching(name).fuzzy(1))
                 .fetch((int) pageable.getOffset(), pageable.getPageSize());
 
         return PageableExecutionUtils.getPage(result.hits().stream().map(LibraryDto::of).toList(), pageable, ()->result.total().hitCount());
