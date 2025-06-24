@@ -12,13 +12,13 @@ import Marker from "@/types/Marker";
 type LibraryMarkedMapProps = {
     center: LatLng;
     libraries: Library[],
-    zoom: number,
+    zoom?: number,
     className?: string;
 }
 
 export default function LibraryMarkedMap({center:initCenter, libraries, zoom=15}: LibraryMarkedMapProps) {
     const [markers, setMarkers] = useState<Marker[]>([]);
-    const [selected, setSelected] = useState<number>(null);
+    const [selected, setSelected] = useState<number>(0);
     const [center, setCenter] = useState(initCenter);
 
 

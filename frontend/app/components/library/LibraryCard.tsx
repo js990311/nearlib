@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Library from "@/types/Library";
 
-export default async function LibraryCard({library}: {library: Library}): React.ReactNode {
+export default async function LibraryCard({library}: {library: Library}) {
     return (
         <div className="p-3 border border-gray-200">
             <Link href={`/library/${library.id}`}>

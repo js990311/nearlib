@@ -10,7 +10,7 @@ import content from "*.bmp";
 type MarkedMapProps = {
     center: LatLng;
     markers: Marker[];
-    zoom: number,
+    zoom?: number,
     className ?: string,
     selected?: number | null
 };

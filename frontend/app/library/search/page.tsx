@@ -12,21 +12,25 @@ type LibraryResponse = {
     pageSize: number,
 }
 
-export default async function LibrarySearch({searchParams} : {searchParams: {
-        q : string,
-        p ?: number,
-        s ?: number
-    }}) {
-    const query = searchParams.q;
-    const page = searchParams.p || "1";
-    const size = searchParams.s || "20";
+type LibrarySearchProps = Promise<{
+    q : string,
+    p ?: number,
+    s ?: number
+}>
+
+export default async function LibrarySearch({searchParams} : {searchParams: LibrarySearchProps}) {
+    const {q,p,s} = await searchParams;
+
+    const query =  q;
+    const page =  p || "1";
+    const size =  s || "20";
 
     const {
         contents,
         contentSize,
         pageNumber,
         pageSize
-    } : LibraryResponse = await fetch(`http://localhost:8080/library/search?q=${query}&p=${page}&s=${size}`, {}).then(res => res.json());
+    } : LibraryResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/library/search?q=${query}&p=${page}&s=${size}`, {}).then(res => res.json());
 
     let totalLat = 0;
     let totalLng = 0;

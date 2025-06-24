@@ -1,7 +1,12 @@
 import Library from "@/types/Library";
 import MarkedMap from "@/app/components/map/MarkedMap";
 
-export default async function LibraryIdPage({params}:{params: {id:number}}) {
+type LibraryIdPageProps = Promise<{
+    lid: string
+}>;
+
+export default async function LibraryIdPage({params}: {params:LibraryIdPageProps}) {
+    const { lid } = await params
 
     const {
         id,
@@ -10,7 +15,7 @@ export default async function LibraryIdPage({params}:{params: {id:number}}) {
         latitude,
         longitude,
         address
-    } : Library = await fetch(`http://localhost:8080/library/${params.id}`, {}).then(res => res.json());
+    } : Library = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/library/${lid}`, {}).then(res => res.json());
 
     return (<div>
         <div className="max-w-sm mx-auto bg-white shadow-lg rounded-2xl p-6 border border-gray-200">
