@@ -41,7 +41,7 @@
     <!-- 루트 로거에 두 appender 연결 -->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="LOKI"/>
+<!--        <appender-ref ref="LOKI"/>-->
     </root>
 
 </configuration>
