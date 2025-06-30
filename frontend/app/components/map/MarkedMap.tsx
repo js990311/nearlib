@@ -91,7 +91,7 @@ export default function MarkedMap({center, markers, zoom=15, selected}: Readonly
         <div>
             <Script
                 strategy="afterInteractive"
-                src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=br63ap9skm&submodules=drawing"
+                src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${process.env.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID}&submodules=drawing`}
                 onReady={() => {
                     createNaverMap();
                 }}
