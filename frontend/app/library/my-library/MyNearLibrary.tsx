@@ -6,8 +6,11 @@ import LatLng from "@/types/LatLng";
 import LibraryMarkedMap from "@/app/components/library/LibraryMarkedMap";
 
 export default function MyNearLibrary () {
-    const [location, setLocation] = useState({ lat: 0.0, lng: 0.0 });
+    const [location, setLocation] = useState<LatLng | null>(null);
     const [libraries, setLibraries] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [distance, setDistance] = useState<number>(10000);
 
     console.log(`서버 : ${process.env.NEXT_PUBLIC_API_BASE}`);
 
@@ -19,26 +22,33 @@ export default function MyNearLibrary () {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude,
                 });
+            }, (e)=>{
+                setError('사용자의 위치정보를 획득하지 못했습니다.');
+                setIsLoading(false);
             });
         }
     },[])
 
     useEffect(()=>{
-        if(location.lat === null || location.lng === null) return;
+        if(location == null || location.lat === null || location.lng === null) return;
         console.log("location", location);
-        fetch(`${process.env.NEXT_PUBLIC_API_BASE}/near?lat=${location.lat}&lng=${location.lng}&range=${10000}`)
+        fetch(`${process.env.NEXT_PUBLIC_API_BASE}/library/near?lat=${location.lat}&lng=${location.lng}&range=${distance}`)
             .then(resp => resp.json())
             .then(data=>{
                 setLibraries(data.contents);
             });
-    }, [location]);
+    }, [location, distance]);
     
     return (
         <div>
-            <LibraryMarkedMap
-                center={location}
-                libraries={libraries}
-            />
+            {
+                location != null
+                &&
+                <LibraryMarkedMap
+                    center={location}
+                    libraries={libraries}
+                />
+            }
         </div>
     )
 }
