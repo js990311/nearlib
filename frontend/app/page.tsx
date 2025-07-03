@@ -1,6 +1,4 @@
 import React from 'react';
-import Logo from "@/app/components/logo/Logo";
-import IconButton from "@/app/components/button/IconButton";
 import Image from "next/image";
 
 export default function Home() {

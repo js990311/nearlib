@@ -29,7 +29,7 @@ export default function MyNearLibrary () {
         }
     },[])
 
-    useEffect(()=>{
+    const fetchLibrary = () => {
         if(location == null || location.lat === null || location.lng === null) return;
         console.log("location", location);
         fetch(`${process.env.NEXT_PUBLIC_API_BASE}/library/near?lat=${location.lat}&lng=${location.lng}&range=${distance}`)
@@ -37,10 +37,30 @@ export default function MyNearLibrary () {
             .then(data=>{
                 setLibraries(data.contents);
             });
-    }, [location, distance]);
-    
+    }
+
+    useEffect(()=>{
+        fetchLibrary();
+    }, [location]);
+
+
     return (
         <div>
+            <h1>내 주변 도서관 </h1>
+            <div>
+                <label htmlFor="range-slider">범위 (m 단위)</label>
+                <input type="range"
+                    min={"100"}
+                   max={"500000"}
+                       value={distance}
+                       onChange={(e)=>setDistance(Number(e.target.value))}
+                />
+                <input type="number"
+                value={distance}
+                       onChange={(e)=>setDistance(Number(e.target.value))}
+                />
+                <button onClick={()=>{fetchLibrary();}}>찾기</button>
+            </div>
             {
                 location != null
                 &&
