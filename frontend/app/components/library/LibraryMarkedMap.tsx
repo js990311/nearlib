@@ -13,10 +13,11 @@ type LibraryMarkedMapProps = {
     center: LatLng;
     libraries: Library[],
     zoom?: number,
-    className?: string;
+    className?: string
+    isPerson?: boolean;
 }
 
-export default function LibraryMarkedMap({center:initCenter, libraries, zoom=15}: LibraryMarkedMapProps) {
+export default function LibraryMarkedMap({center:initCenter, libraries, zoom=15, isPerson}: LibraryMarkedMapProps) {
     const [markers, setMarkers] = useState<Marker[]>([]);
     const [selected, setSelected] = useState<number>(0);
     const [center, setCenter] = useState(initCenter);
@@ -70,6 +71,7 @@ export default function LibraryMarkedMap({center:initCenter, libraries, zoom=15}
                 center={center}
                 markers={markers}
                 zoom={zoom}
+                isPerson={isPerson}
             />
             <OpenList>
                 {libraries.map((library)=>(

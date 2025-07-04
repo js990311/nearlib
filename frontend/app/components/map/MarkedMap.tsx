@@ -12,13 +12,15 @@ type MarkedMapProps = {
     markers: Marker[];
     zoom?: number,
     className ?: string,
-    selected?: number | null
+    selected?: number | null,
+    isPerson?: boolean,
 };
 
-export default function MarkedMap({center, markers, zoom=15, selected}: Readonly<MarkedMapProps>) {
+export default function MarkedMap({center, markers, zoom=15, selected, isPerson}: Readonly<MarkedMapProps>) {
     const mapRef = useRef<HTMLDivElement | null>(null);
     const [mapState, setMapState] = useState<naver.maps.Map | null>(null);
     const [dmarkers, setDmarkers] = useState<naver.maps.Marker[]>([]);
+    const [cMarker, setCMarker] = useState<naver.maps.Marker | null>(null);
 
     console.log("markers", markers);
 
@@ -36,7 +38,7 @@ export default function MarkedMap({center, markers, zoom=15, selected}: Readonly
         setMapState(map);
     }
 
-    useEffect(()=>{
+    useEffect((options: naver.maps.MarkerOptions)=>{
         if(mapState !== null){
             if(dmarkers !== null){
                 dmarkers.forEach((marker)=>{
@@ -70,6 +72,18 @@ export default function MarkedMap({center, markers, zoom=15, selected}: Readonly
                 return dmarker;
             });
             setDmarkers(drawingMarkers);
+            const centerMarker =  new naver.maps.Marker({
+                position: center,
+                map: mapState,
+                icon: {
+                    url: '/images/my_pin.png',
+                    size: new naver.maps.Size(25, 34),
+                    scaledSize: new naver.maps.Size(25, 34),
+                    origin: new naver.maps.Point(0, 0),
+                    anchor: new naver.maps.Point(12, 34)
+                }
+            });
+            setCMarker(centerMarker);
         }
     }, [mapState, markers]);
 
