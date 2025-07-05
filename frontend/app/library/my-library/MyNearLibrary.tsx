@@ -67,6 +67,7 @@ export default function MyNearLibrary () {
                 <LibraryMarkedMap
                     center={location}
                     libraries={libraries}
+                    radius={distance}
                 />
             }
         </div>

@@ -14,13 +14,15 @@ type MarkedMapProps = {
     className ?: string,
     selected?: number | null,
     isPerson?: boolean,
+    radius ?: number
 };
 
-export default function MarkedMap({center, markers, zoom=15, selected, isPerson}: Readonly<MarkedMapProps>) {
+export default function MarkedMap({center, markers, zoom=15, selected, isPerson, radius}: Readonly<MarkedMapProps>) {
     const mapRef = useRef<HTMLDivElement | null>(null);
     const [mapState, setMapState] = useState<naver.maps.Map | null>(null);
     const [dmarkers, setDmarkers] = useState<naver.maps.Marker[]>([]);
     const [cMarker, setCMarker] = useState<naver.maps.Marker | null>(null);
+    const [circle, setCircle] = useState<naver.maps.Circle | null>(null);
 
     console.log("markers", markers);
 
@@ -45,6 +47,8 @@ export default function MarkedMap({center, markers, zoom=15, selected, isPerson}
                     marker.setMap(null);
                 });
             }
+
+            // 도서관 마커들
             const drawingMarkers = markers.map((marker: Marker) => {
                 const dmarker =  new naver.maps.Marker({
                     position: marker.position,
@@ -72,6 +76,8 @@ export default function MarkedMap({center, markers, zoom=15, selected, isPerson}
                 return dmarker;
             });
             setDmarkers(drawingMarkers);
+
+            // 중심 마커
             const centerMarker =  new naver.maps.Marker({
                 position: center,
                 map: mapState,
@@ -86,6 +92,32 @@ export default function MarkedMap({center, markers, zoom=15, selected, isPerson}
             setCMarker(centerMarker);
         }
     }, [mapState, markers]);
+
+    useEffect(() => {
+        if(mapState === null){
+            return;
+        }
+        // 중심선 기준 원 그리기
+        if(radius){
+            if(circle){ // 있으먄 재설정
+                circle.setRadius(radius);
+            }else { // 없으면 그려
+                const circleTmp = new naver.maps.Circle({
+                    strokeColor: '#E74C3C',
+                    strokeOpacity: 0.9,
+                    strokeWeight: 2,
+                    fillColor: '#E74C3C',
+                    fillOpacity: 0.1,
+                    center: center, // 원의 중심 좌표
+                    radius: radius,                                         // 원의 반경 (미터 단위)
+                    zIndex: 100,
+                    clickable: false,
+                    map: mapState
+                });
+                setCircle(circleTmp);
+            }
+        }
+    }, [mapState, radius]);
 
     useEffect(() => {
         if(mapState !== null){
