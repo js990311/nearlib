@@ -43,7 +43,6 @@ export default function MyNearLibrary () {
         fetchLibrary();
     }, [location]);
 
-
     return (
         <div>
             <h1>내 주변 도서관 </h1>
@@ -59,7 +58,42 @@ export default function MyNearLibrary () {
                 value={distance}
                        onChange={(e)=>setDistance(Number(e.target.value))}
                 />
-                <button onClick={()=>{fetchLibrary();}}>찾기</button>
+                <div>
+                    <p>빠른 설정</p>
+                    <div className={"gird gird-cols-4 sm:grid-cols-4 gap-2"}>
+                        <button
+                            onClick={(e) => {
+                            setDistance(500)
+                        }}>
+                            500m
+                        </button>
+
+                        <button
+                            onClick={(e) => {
+                            setDistance(1_000)
+                        }}>
+                            1 km
+                        </button>
+                        <button
+                            onClick={(e) => {
+                            setDistance(5_000)
+                        }}>
+                            5 km
+                        </button>
+                        <button
+                            onClick={(e) => {
+                            setDistance(10_000)
+                        }}>
+                            10 km
+                        </button>
+                    </div>
+
+
+                </div>
+                <button onClick={() => {
+                    fetchLibrary();
+                }}>찾기
+                </button>
             </div>
             {
                 location != null
