@@ -59,31 +59,93 @@ export default function MyNearLibrary () {
                        onChange={(e)=>setDistance(Number(e.target.value))}
                 />
                 <div>
+                    <div>
+                        <button onClick={(e) => {
+                            setDistance((prev) => {
+                                return prev - 100
+                            })
+                        }}>
+                            -100m
+                        </button>
+                        <button onClick={(e) => {
+                            setDistance((prev) => {
+                                return prev - 500
+                            })
+                        }}>
+                            -500m
+                        </button>
+                        <button onClick={(e) => {
+                            setDistance((prev) => {
+                                return prev - 1_000
+                            })
+                        }}>
+                            -1km
+                        </button>
+                        <button onClick={(e) => {
+                            setDistance((prev) => {
+                                return prev - 5_000
+                            })
+                        }}>
+                            -5km
+                        </button>
+                    </div>
+                    <div>
+                        <button onClick={(e) => {
+                            setDistance((prev) => {
+                                return prev + 100
+                            })
+                        }}>
+                            +100m
+                        </button>
+                        <button onClick={(e) => {
+                            setDistance((prev) => {
+                                return prev + 500
+                            })
+                        }}>
+                            +500m
+                        </button>
+                        <button onClick={(e) => {
+                            setDistance((prev) => {
+                                return prev + 1_000
+                            })
+                        }}>
+                            +1km
+                        </button>
+                        <button onClick={(e) => {
+                            setDistance((prev) => {
+                                return prev + 5_000
+                            })
+                        }}>
+                            +5km
+                        </button>
+                    </div>
+                </div>
+                <div>
                     <p>빠른 설정</p>
                     <div className={"gird gird-cols-4 sm:grid-cols-4 gap-2"}>
                         <button
                             onClick={(e) => {
-                            setDistance(500)
-                        }}>
+                                setDistance(500)
+                            }}>
                             500m
                         </button>
 
                         <button
                             onClick={(e) => {
-                            setDistance(1_000)
-                        }}>
+                                setDistance(1_000)
+                            }}>
                             1 km
                         </button>
                         <button
                             onClick={(e) => {
-                            setDistance(5_000)
-                        }}>
+                                setDistance(5_000)
+                            }}>
                             5 km
                         </button>
                         <button
                             onClick={(e) => {
-                            setDistance(10_000)
-                        }}>
+                                setDistance(10_000)
+                            }}>
                             10 km
                         </button>
                     </div>
