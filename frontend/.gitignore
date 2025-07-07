@@ -43,5 +43,3 @@ next-env.d.ts
 # webstorm
 .idea
 
-# fontawesome
-/public/fontawesome
