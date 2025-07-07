@@ -10,6 +10,7 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: frontend-env
 
     steps:
       # 1. Github 저장소의 코드 사용
