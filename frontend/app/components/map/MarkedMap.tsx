@@ -40,7 +40,7 @@ export default function MarkedMap({center, markers, zoom=15, selected, isPerson,
         setMapState(map);
     }
 
-    useEffect((options: naver.maps.MarkerOptions)=>{
+    useEffect(()=>{
         if(mapState !== null){
             if(dmarkers !== null){
                 dmarkers.forEach((marker)=>{
