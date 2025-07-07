@@ -28,10 +28,9 @@ jobs:
       # 3. Amazon ECR Public에 로그인합니다.
       - name: Log in to Amazon ECR Public (for Push from Runner)
         id: login-ecr-public
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/amazon-ecr-login@v2
         with:
           registry-type: public
-          region: us-east-1
 
       # 4. 빌드 and Push
       - name: Build and push Next.js image to ECR Public
