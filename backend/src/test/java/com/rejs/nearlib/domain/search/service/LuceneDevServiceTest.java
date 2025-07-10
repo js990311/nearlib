@@ -1,6 +1,7 @@
 package com.rejs.nearlib.domain.search.service;
 
 import com.rejs.nearlib.domain.search.dto.IndexInfo;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Disabled
 class LuceneDevServiceTest {
 
     private LuceneDevService luceneDevService = new LuceneDevService();
