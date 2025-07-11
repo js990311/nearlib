@@ -31,17 +31,8 @@ public class LibraryService {
         return librarySearchRepository.searchByLocation(latitude, longitude, range, PageRequest.of(page,size));
     }
 
-    public List<LibraryDto> findAll(){
-        List<Library> libraries = libraryRepository.findAll();
-        return libraries.stream().map(LibraryDto::of).toList();
-    }
-
     public List<Long> findAllId(){
         return libraryRepository.findAllId();
-    }
-
-    public Page<LibraryDto> searchByDB(String name, int page, int size){
-        return libraryRepository.findByNameContaining(name, PageRequest.of(page, size)).map(LibraryDto::of);
     }
 
     public Page<LibraryDto> searchByEngine(String name, int page, int size){

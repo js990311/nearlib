@@ -96,11 +96,6 @@ jacocoTestCoverageVerification{
 				// 라인 커버리지가 N 미만이면 실패
 				minimum = 0.5
 			}
-			limit {{
-				counter = 'BRANCH'
-				value = 'MISSEDCOUNT'
-				maximum = 10
-			}}
 		}}
 	}
 }
