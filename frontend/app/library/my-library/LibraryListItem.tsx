@@ -1,12 +1,12 @@
 "use client"
 
-import Library from "@/types/Library";
+import Library from "@/types/library";
 import Link from "next/link";
-import LatLng from "@/types/LatLng";
+import Latlng from "@/types/latlng";
 
 type LibraryListItemProps = {
     library: Library;
-    onClick: (center:LatLng) => void;
+    onClick: (center:Latlng) => void;
 }
 
 export function LibraryListItem({library, onClick}: LibraryListItemProps) {

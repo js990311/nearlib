@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import Library from "@/types/Library";
+import Library from "@/types/library";
 
 export default async function LibraryCard({library}: {library: Library}) {
     return (

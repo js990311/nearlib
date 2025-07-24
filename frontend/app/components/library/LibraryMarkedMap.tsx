@@ -1,16 +1,16 @@
 "use client"
 
-import LatLng from "@/types/LatLng";
-import Library from "@/types/Library";
+import Latlng from "@/types/latlng";
+import Library from "@/types/library";
 import MarkedMap from "@/app/components/map/MarkedMap";
 import React, {useEffect, useRef, useState} from "react";
 import LibraryCard from "@/app/components/library/LibraryCard";
 import {LibraryListItem} from "@/app/library/my-library/LibraryListItem";
 import OpenList from "@/app/components/list/OpenList";
-import Marker from "@/types/Marker";
+import Marker from "@/types/marker";
 
 type LibraryMarkedMapProps = {
-    center: LatLng;
+    center: Latlng;
     libraries: Library[],
     zoom?: number,
     className?: string
@@ -78,7 +78,7 @@ export default function LibraryMarkedMap({center:initCenter, libraries, zoom=15,
             <OpenList>
                 {libraries.map((library)=>(
                     <LibraryListItem
-                        onClick={(center:LatLng )=>{setCenter(center)}}
+                        onClick={(center:Latlng )=>{setCenter(center)}}
                         key={library.id}
                         library={library}
                     />

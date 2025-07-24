@@ -2,11 +2,11 @@
 
 import {useEffect, useRef, useState} from "react";
 import MarkedMap from "@/app/components/map/MarkedMap";
-import LatLng from "@/types/LatLng";
+import Latlng from "@/types/latlng";
 import LibraryMarkedMap from "@/app/components/library/LibraryMarkedMap";
 
 export default function MyNearLibrary () {
-    const [location, setLocation] = useState<LatLng | null>(null);
+    const [location, setLocation] = useState<Latlng | null>(null);
     const [libraries, setLibraries] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
