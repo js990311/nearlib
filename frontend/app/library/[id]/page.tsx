@@ -1,4 +1,4 @@
-import Library from "@/types/Library";
+import Library from "@/types/library";
 import MarkedMap from "@/app/components/map/MarkedMap";
 
 type LibraryIdPageProps = Promise<{

@@ -2,13 +2,13 @@
 
 import {useEffect, useRef, useState} from "react";
 import Script from "next/script";
-import LatLng from "@/types/LatLng";
-import Marker from "@/types/Marker";
-import marker from "@/types/Marker";
+import Latlng from "@/types/latlng";
+import Marker from "@/types/marker";
+import marker from "@/types/marker";
 import content from "*.bmp";
 
 type MarkedMapProps = {
-    center: LatLng;
+    center: Latlng;
     markers: Marker[];
     zoom?: number,
     className ?: string,

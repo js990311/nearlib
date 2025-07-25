@@ -1,9 +1,9 @@
 import LibraryCard from "@/app/components/library/LibraryCard";
-import Library from "@/types/Library";
+import Library from "@/types/library";
 import React from "react";
 import LibrarySearchBar from "@/app/library/search/components/LibrarySearchBar";
-import LatLng from "@/types/LatLng";
-import LibraryMarkedMap from "@/app/components/library/LibraryMarkedMap";
+import Latlng from "@/types/latlng";
+import LibraryMarkedMap from "@/components/map/LibraryMarkedMap";
 
 type LibraryResponse = {
     contents : Library[],
@@ -32,27 +32,6 @@ export default async function LibrarySearch({searchParams} : {searchParams: Libr
         pageSize
     } : LibraryResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/library/search?q=${query}&p=${page}&s=${size}`, {}).then(res => res.json());
 
-    let totalLat = 0;
-    let totalLng = 0;
-
-    const libraryMarkers: LatLng[] = contents.map((library) => {
-        let lat = library.latitude;
-        let lng = library.longitude;
-
-        totalLat += lat;
-        totalLng += lng;
-
-        return {
-            lat : lat,
-            lng : lng
-        };
-    });
-
-    const center: LatLng = libraryMarkers.length === 0
-        ? {lat:36.34, lng:127.77}
-        : {lat: totalLat / libraryMarkers.length, lng:totalLng / libraryMarkers.length};
-
-
     return (
         <div>
             <LibrarySearchBar
@@ -62,7 +41,6 @@ export default async function LibrarySearch({searchParams} : {searchParams: Libr
                 pageSize = {pageSize}
             />
             <LibraryMarkedMap
-                center={center}
                 libraries={contents}
                 zoom={15}
             />
