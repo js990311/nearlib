@@ -1,7 +1,7 @@
 "use client"
 
 import Latlng from "@/types/latlng";
-import { MarkerInfo } from "@/types/marker";
+import marker, { MarkerInfo } from "@/types/marker";
 import Script from "next/script";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 
@@ -66,6 +66,11 @@ const Map = forwardRef<MapHandler, MapProps>(
             drawMarkers : (markerInfos) => {
                 if(!mapState){
                     return;
+                }
+                if(markers.current){
+                    markers.current.forEach((marker)=>{
+                        marker.setMap(null);
+                    });
                 }
                 markers.current = markerInfos.map((markerInfo : MarkerInfo) => {
                     const marker = new naver.maps.Marker({
