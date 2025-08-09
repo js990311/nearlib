@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import {useState} from "react";
-import IconButton from "@/app/components/button/IconButton";
-import NavSmall from "@/app/components/nav/NavSmall";
-import SearchBar from "@/app/components/searchbar/SearchBar";
+import NavSmall from "@/components/nav/NavSmall";
+import SearchBar from "@/components/searchbar/SearchBar";
 import {useRouter} from "next/navigation";
-import Logo from "@/app/components/logo/Logo";
+import Logo from "@/components/logo/Logo";
+import IconButton from "@/components/button/IconButton";
 
 export default function Nav():React.ReactNode {
     const [openNav, setOpenNav] = useState(false);
@@ -25,7 +25,7 @@ export default function Nav():React.ReactNode {
             <div className="container mx-auto flex justify-between items-center">
                 <div id="nav-left" className="flex justify-start items-center">
                     <div className="md:mr-20">
-                        <Link href={"/"}>
+                        <Link href={"/public"}>
                             <Logo />
                         </Link>
                     </div>

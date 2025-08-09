@@ -1,7 +1,7 @@
 "use client"
 
 import {useEffect, useRef, useState} from "react";
-import IconButton from "@/app/components/button/IconButton";
+import IconButton from "@/components/button/IconButton";
 
 type SearchBarProps = {
     onSubmit: (q: string) => void,

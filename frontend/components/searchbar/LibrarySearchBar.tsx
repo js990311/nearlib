@@ -1,9 +1,8 @@
 "use client"
 
-import SearchBar from "@/app/components/searchbar/SearchBar";
+import SearchBar from "@/components/searchbar/SearchBar";
 import {useRouter} from "next/navigation";
-import {BeforeButton, AfterButton} from "@/app/components/button/PageButton";
-import {on} from "next/dist/client/components/react-dev-overlay/pages/bus";
+import {BeforeButton, AfterButton} from "@/components/button/PageButton";
 
 type LibrarySearchBarProps = {
     query: string,
