@@ -5,6 +5,7 @@ import Library from "@/types/library";
 import Map, {MapHandler} from "@/components/map/Map";
 import {buildLibraryMarkers} from "@/utils/libraryMapUtils";
 import {MarkerInfo} from "@/types/marker";
+import MapSideBar from "@/components/map/sidebar/MapSideBar";
 
 type LibraryMarkedMapProps = {
     libraries: Library[],
@@ -25,7 +26,13 @@ export default function LibraryMarkedMap({libraries}: LibraryMarkedMapProps) {
     }, [libraries]);
 
     return (
-        <div>
+        <div className={'relative w-full h-full'}>
+            <MapSideBar>
+                <h3>사이드바</h3>
+                <div>
+                    사이드바 열림 확인
+                </div>
+            </MapSideBar>
            <Map
                ref={mapRef}
                className={"w-full h-[500px] md:h-[600px] lg:h-[700px]"}
