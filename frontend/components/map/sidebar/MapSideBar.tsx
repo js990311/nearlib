@@ -23,7 +23,7 @@ export default function MapSideBar({children} : MapSideBarProps){
                     열기
                 </button>
             </div>
-            <div>
+            <div className={'overflow-scroll h-full'}>
                 {children}
             </div>
         </div>

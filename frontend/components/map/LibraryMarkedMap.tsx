@@ -6,6 +6,7 @@ import Map, {MapHandler} from "@/components/map/Map";
 import {buildLibraryMarkers} from "@/utils/libraryMapUtils";
 import {MarkerInfo} from "@/types/marker";
 import MapSideBar from "@/components/map/sidebar/MapSideBar";
+import LibraryCard from "@/components/list/LibraryCard";
 
 type LibraryMarkedMapProps = {
     libraries: Library[],
@@ -28,15 +29,22 @@ export default function LibraryMarkedMap({libraries}: LibraryMarkedMapProps) {
     return (
         <div className={'relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden'}>
             <MapSideBar>
-                <h3>사이드바</h3>
-                <div>
-                    사이드바 열림 확인
-                </div>
+                <h3 className={"text-2xl font-bold"}>
+                    검색결과
+                </h3>
+                <ul>
+                    {
+                        libraries.map((library: Library,) => (
+                            <LibraryCard library={library} key={library.id} />
+                        ))
+                    }
+                </ul>
             </MapSideBar>
-           <Map
-               ref={mapRef}
-               className={"w-full h-[500px] md:h-[600px] lg:h-[700px]"}
-           ></Map>
+            <Map
+                ref={mapRef}
+                className={"w-full h-[500px] md:h-[600px] lg:h-[700px]"}
+            >
+            </Map>
         </div>
     );
 }
