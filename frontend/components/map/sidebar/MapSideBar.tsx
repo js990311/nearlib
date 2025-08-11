@@ -1,9 +1,10 @@
 "use client"
 
+
 import {useState} from "react";
 
 type MapSideBarProps={
-    children: React.ReactNode
+    children: React.ReactNode,
 }
 
 export default function MapSideBar({children} : MapSideBarProps){
@@ -11,17 +12,16 @@ export default function MapSideBar({children} : MapSideBarProps){
 
     return (
         <div
-            className={`z-40 bg-white absolute top-0 left-0 transition-transform duration-200 h-full w-[350px] ease-in-out ${isOpen ? 'transform translate-x-0' : 'transform -translate-x-full'}`}>
+            className={`z-40 bg-black text-white absolute top-0 left-0 transition-transform duration-200 h-full w-[350px] ease-in-out ${isOpen ? 'transform translate-x-0' : 'transform -translate-x-full'}`}>
             <div
                 className={'relative'}
             >
-                <div
-                    className={'absolute top-1 right-0'}
+                <button
+                    className={"absolute top-1.5 right-0 transform translate-x-full bg-red-700"}
+                    onClick={() => setIsOpen((prev)=>!prev)}
                 >
-                    <button onClick={() => setIsOpen((prev)=>!prev)}>
-                        열기
-                    </button>
-                </div>
+                    열기
+                </button>
             </div>
             <div>
                 {children}

@@ -1,6 +1,6 @@
 "use client"
 
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import Library from "@/types/library";
 import Map, {MapHandler} from "@/components/map/Map";
 import {buildLibraryMarkers} from "@/utils/libraryMapUtils";
@@ -26,7 +26,7 @@ export default function LibraryMarkedMap({libraries}: LibraryMarkedMapProps) {
     }, [libraries]);
 
     return (
-        <div className={'relative w-full h-full'}>
+        <div className={'relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden'}>
             <MapSideBar>
                 <h3>사이드바</h3>
                 <div>
