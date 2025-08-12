@@ -7,6 +7,7 @@ import {buildLibraryMarkers} from "@/utils/libraryMapUtils";
 import {MarkerInfo} from "@/types/marker";
 import MapSideBar from "@/components/map/sidebar/MapSideBar";
 import LibraryCard from "@/components/list/LibraryCard";
+import Latlng from "@/types/latlng";
 
 type LibraryMarkedMapProps = {
     libraries: Library[],
@@ -35,7 +36,12 @@ export default function LibraryMarkedMap({libraries}: LibraryMarkedMapProps) {
                 <ul>
                     {
                         libraries.map((library: Library,) => (
-                            <LibraryCard library={library} key={library.id} />
+                            <
+                                LibraryCard library={library} key={library.id}
+                                onClick={(center: Latlng) => {
+                                    mapRef.current?.setCenter(center);
+                                }}
+                            />
                         ))
                     }
                 </ul>
