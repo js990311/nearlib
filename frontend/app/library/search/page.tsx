@@ -1,7 +1,7 @@
-import LibraryCard from "@/app/components/library/LibraryCard";
+import LibraryCard from "@/components/library/LibraryCard";
 import Library from "@/types/library";
 import React from "react";
-import LibrarySearchBar from "@/app/library/search/components/LibrarySearchBar";
+import LibrarySearchBar from "@/components/searchbar/LibrarySearchBar";
 import Latlng from "@/types/latlng";
 import LibraryMarkedMap from "@/components/map/LibraryMarkedMap";
 

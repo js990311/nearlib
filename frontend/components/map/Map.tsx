@@ -32,6 +32,10 @@ const Map = forwardRef<MapHandler, MapProps>(
 
             // 지도에 원을 그림
             drawCircle: (center, radius, strokeColor, fillColor) => {
+                if(!mapState){
+                    return;
+                }
+
                 if(!center || !radius){
                     return;
                 }

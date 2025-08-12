@@ -3,7 +3,8 @@
 import {useEffect, useRef, useState} from "react";
 import MarkedMap from "@/app/components/map/MarkedMap";
 import Latlng from "@/types/latlng";
-import LibraryMarkedMap from "@/app/components/library/LibraryMarkedMap";
+import LibraryMarkedMap from "@/components/map/LibraryMarkedMap";
+import NearLibraryMarkedMap from "@/components/map/NearLibraryMarkedMap";
 
 export default function MyNearLibrary () {
     const [location, setLocation] = useState<Latlng | null>(null);
@@ -160,7 +161,7 @@ export default function MyNearLibrary () {
             {
                 location != null
                 &&
-                <LibraryMarkedMap
+                <NearLibraryMarkedMap
                     center={location}
                     libraries={libraries}
                     radius={distance}

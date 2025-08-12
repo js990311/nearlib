@@ -1,8 +1,8 @@
 import React from "react";
-import IconButton from "@/app/components/button/IconButton";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import SearchBar from "@/app/components/searchbar/SearchBar";
+import SearchBar from "@/components/searchbar/SearchBar";
+import IconButton from "@/components/button/IconButton";
 
 interface NavSmallProps {
     onClose: () => void
