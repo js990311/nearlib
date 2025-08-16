@@ -6,14 +6,19 @@ import Map, {MapHandler} from "@/components/map/Map";
 import {buildLibraryMarkers} from "@/utils/libraryMapUtils";
 import {MarkerInfo} from "@/types/marker";
 import Latlng from "@/types/latlng";
+import MapSideBar from "@/components/map/sidebar/MapSideBar";
+import RangeRemoteController from "@/components/map/sidebar/RangeRemoteController";
 
 type NearLibraryMarkedMapProps = {
     center: Latlng;
     radius : number;
     libraries: Library[],
+    range: number,
+    setRange: (range: number) => void
+    onSearch: ()=> void;
 }
 
-export default function NearLibraryMarkedMap({libraries, radius, center}: NearLibraryMarkedMapProps) {
+export default function NearLibraryMarkedMap({libraries, radius, center, range, setRange, onSearch}: NearLibraryMarkedMapProps) {
     const mapRef = useRef<MapHandler | null>(null);
 
     useEffect(()=>{
@@ -33,7 +38,16 @@ export default function NearLibraryMarkedMap({libraries, radius, center}: NearLi
     }, [center])
 
     return (
-        <div>
+        <div className={'relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden'}>
+            <MapSideBar>
+                <div>
+                    <RangeRemoteController
+                        range={ range }
+                        setRange={ setRange }
+                        onSearch={onSearch}
+                    />
+                </div>
+            </MapSideBar>
            <Map
                ref={mapRef}
                className={"w-full h-[500px] md:h-[600px] lg:h-[700px]"}
