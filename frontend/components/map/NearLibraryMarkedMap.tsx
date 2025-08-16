@@ -8,6 +8,7 @@ import {MarkerInfo} from "@/types/marker";
 import Latlng from "@/types/latlng";
 import MapSideBar from "@/components/map/sidebar/MapSideBar";
 import RangeRemoteController from "@/components/map/sidebar/RangeRemoteController";
+import LibraryCard from "@/components/list/LibraryCard";
 
 type NearLibraryMarkedMapProps = {
     center: Latlng;
@@ -42,16 +43,31 @@ export default function NearLibraryMarkedMap({libraries, radius, center, range, 
             <MapSideBar>
                 <div>
                     <RangeRemoteController
-                        range={ range }
-                        setRange={ setRange }
+                        range={range}
+                        setRange={setRange}
                         onSearch={onSearch}
                     />
                 </div>
+                <h3 className={"text-2xl font-bold"}>
+                    검색결과
+                </h3>
+                <ul>
+                    {
+                        libraries.map((library: Library,) => (
+                            <
+                                LibraryCard library={library} key={library.id}
+                                            onClick={(center: Latlng) => {
+                                                mapRef.current?.setCenter(center);
+                                            }}
+                            />
+                        ))
+                    }
+                </ul>
             </MapSideBar>
-           <Map
-               ref={mapRef}
-               className={"w-full h-[500px] md:h-[600px] lg:h-[700px]"}
-           ></Map>
+            <Map
+                ref={mapRef}
+                className={"w-full h-[500px] md:h-[600px] lg:h-[700px]"}
+            ></Map>
         </div>
     );
 }

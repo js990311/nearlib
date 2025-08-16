@@ -42,7 +42,6 @@ export default async function LibrarySearch({searchParams} : {searchParams: Libr
             />
             <LibraryMarkedMap
                 libraries={contents}
-                zoom={15}
             />
         </div>
     )
