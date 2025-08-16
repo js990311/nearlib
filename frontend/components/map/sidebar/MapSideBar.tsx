@@ -12,18 +12,18 @@ export default function MapSideBar({children} : MapSideBarProps){
 
     return (
         <div
-            className={`z-40 bg-black text-white absolute top-0 left-0 transition-transform duration-200 h-full w-[350px] ease-in-out ${isOpen ? 'transform translate-x-0' : 'transform -translate-x-full'}`}>
+            className={`z-40 bg-gray-50 p-3 absolute top-0 left-0 transition-transform duration-200 h-full w-[350px] ease-in-out ${isOpen ? 'transform translate-x-0' : 'transform -translate-x-full'}`}>
             <div
                 className={'relative'}
             >
                 <button
-                    className={"absolute top-1.5 right-0 transform translate-x-full bg-red-700"}
+                    className={"absolute top-1.5 right-0 transform translate-x-full bg-slate-800 text-white p-1"}
                     onClick={() => setIsOpen((prev)=>!prev)}
                 >
-                    열기
+                    {isOpen ? "Close" : "Open"}
                 </button>
             </div>
-            <div className={'overflow-scroll h-full'}>
+            <div className={'overflow-y-scroll h-full'}>
                 {children}
             </div>
         </div>

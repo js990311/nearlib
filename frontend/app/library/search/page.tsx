@@ -1,8 +1,6 @@
-import LibraryCard from "@/components/library/LibraryCard";
 import Library from "@/types/library";
 import React from "react";
 import LibrarySearchBar from "@/components/searchbar/LibrarySearchBar";
-import Latlng from "@/types/latlng";
 import LibraryMarkedMap from "@/components/map/LibraryMarkedMap";
 
 type LibraryResponse = {

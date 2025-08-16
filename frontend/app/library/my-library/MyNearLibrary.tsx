@@ -1,11 +1,8 @@
 "use client"
 
-import {useEffect, useRef, useState} from "react";
-import MarkedMap from "@/app/components/map/MarkedMap";
+import {useEffect, useState} from "react";
 import Latlng from "@/types/latlng";
-import LibraryMarkedMap from "@/components/map/LibraryMarkedMap";
 import NearLibraryMarkedMap from "@/components/map/NearLibraryMarkedMap";
-import RangeRemoteController from "@/components/map/sidebar/RangeRemoteController";
 
 export default function MyNearLibrary () {
     const [location, setLocation] = useState<Latlng | null>(null);
