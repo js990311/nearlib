@@ -9,8 +9,21 @@ type RangeRemoteControllerProps = {
     onSearch : () => void,
 }
 
+const STEP_PRESETS : {value: number, label: string}[] = [
+    {value: 100, label: "100m"},
+    {value: 500, label: "500m"},
+    {value: 1000, label: "1km"},
+    {value: 3000, label: "3km"},
+    {value: 5000, label: "5km"},
+    {value: 10000, label: "10km"},
+];
+
 export default function RangeRemoteController({range, setRange, onSearch}: RangeRemoteControllerProps) {
-    const [temp, setTemp] = useState<number>(100);
+    const [step, setStep] = useState<number>(100);
+
+    const onChangeStep = (newStep : number) => {
+        setStep(Math.max(0, newStep));
+    }
 
     return (
         <div
@@ -29,7 +42,7 @@ export default function RangeRemoteController({range, setRange, onSearch}: Range
                            className={"bg-green-700 rounded p-2"}
                            value={range}
                            onChange={(e) => {
-                               setRange(Number(e.target.value));
+                               setRange(Math.max(0, Number(e.target.value)));
                            }}
                     />
                     <button
@@ -44,30 +57,31 @@ export default function RangeRemoteController({range, setRange, onSearch}: Range
                         <IconButton
                             iconClass={"fa-solid fa-minus"}
                             onClick={() => {
-                                setRange(range - temp);
+                                setRange(Math.max(0, range - step));
                             }}
                         />
                         <input type="number"
                            className={"bg-green-700 rounded"}
-                            value={temp}
+                            value={step}
                             onChange={(e) => {
-                                setTemp(Number(e.target.value));
+                                onChangeStep(Number(e.target.value));
                             }}
                         />
                         <IconButton
                             iconClass={"fa-solid fa-plus"}
                             onClick={() => {
-                                setRange(range + temp);
+                                setRange(range + step);
                             }}
                         />
                     </div>
                     <div>
-                        <button onClick={()=>{setTemp(100)}}>100m</button>
-                        <button onClick={()=>{setTemp(500)}}>500m</button>
-                        <button onClick={()=>{setTemp(1000)}}>1km</button>
-                        <button onClick={()=>{setTemp(3000)}}>3km</button>
-                        <button onClick={()=>{setTemp(5000)}}>5km</button>
-                        <button onClick={()=>{setTemp(10000)}}>10km</button>
+                        {
+                            STEP_PRESETS.map((preset: {value: number, label: string}) =>
+                                <button key={preset.value} onClick={() => {onChangeStep(preset.value)}}>
+                                    {preset.label}
+                                </button>
+                            )
+                        }
                     </div>
                 </div>
             </div>
